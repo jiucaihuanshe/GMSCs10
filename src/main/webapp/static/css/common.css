@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.modal-content{
+	border-radius: 5px;
+}
+
+.box{
+	border-top:1px solid #d2d6de;
+}
+
+.box-footer{
+	text-align:center;
+}
+
+.box-footer button {
+	width: 100px;
+	margin-right: 20px;
+}
+
+input.error {
+	border-color: #ff0000;
+}
+
+label.error {
+	color: #ff0000;
+}
+
+label.required:after {
+	content: '*';
+	color: #ff0000;
+	font-size: 100%;
+}
+
+
+td.operate .fa-edit {
+	color: #4cae4c;
+	font-size: 20px;
+	margin-right:10px;
+}
+
+td.operate .fa-trash-o {
+	color: #ff0000;
+	font-size: 20px;
+}
+
+label.valid{
+	display:none !important;
+}
