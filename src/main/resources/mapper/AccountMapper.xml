@@ -6,4 +6,10 @@
 		select * from administrator
 		where delete_flag=0 and username=#{username}
 	</select>
+	
+	<insert id="saveUser">
+		insert into
+		administrator(id,username,password,salt,addon,addby)
+		values(#{id},#{username},#{password},#{salt},now(),#{addby})
+	</insert>
 </mapper>

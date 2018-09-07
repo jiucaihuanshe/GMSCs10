@@ -31,6 +31,7 @@ create table employee(
 	age tinyint unsigned,
 	duty varchar(16),
 	telephone varchar(12),
+	id_card varchar(50),
 	address varchar(40),
 	remark varchar(50),
 	addon datetime,
@@ -134,7 +135,7 @@ alter table sell_particular add foreign key(bar_code) references merchandise(bar
 create table administrator(
 	id int(4) auto_increment,
 	username varchar(10) not null,
-	password varchar(16) not null,
+	password varchar(50) not null,
 	salt varchar(50),
 	remark varchar(10),
 	addon datetime,

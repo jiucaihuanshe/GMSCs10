@@ -8,6 +8,7 @@ public class Employee extends BasePojo{
 	private Integer age;
 	private String duty;	//职务
 	private String telephone;
+	private String idCard;	//身份证
 	private String address;
 	private String remark;
 	public Integer getId() {
@@ -45,6 +46,12 @@ public class Employee extends BasePojo{
 	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+	public String getIdCard() {
+		return idCard;
+	}
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
 	}
 	public String getAddress() {
 		return address;

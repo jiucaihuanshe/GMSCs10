@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gms.backend.mapper.StaffMapper">
+	<sql id="StaffSqlId">
+		<if test="editon!=null">
+			editon=#{editon},
+		</if>
+		<if test="editby!=null and editby!=''">
+			editby=#{editby},
+		</if>
+	</sql>
+	<select id="findAllStaff" resultType="Employee">
+		select id,name,gender,duty,telephone,address,addon from employee where delete_flag=0
+	</select>
+	
+	<select id="findStaff" resultType="Employee">
+		select id,name,gender,age,duty,telephone,id_card as idCard,address,remark from employee where id=#{id} and delete_flag=0
+	</select>
+	
+	<insert id="saveStaff" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		employee(name,gender,age,duty,telephone,id_card,address,remark,addon,addby)
+		values(#{name},#{gender},#{age},#{duty},#{telephone},#{idCard},#{address},#{remark},now(),#{addby})
+	</insert>
+	
+	<update id="updateStaff">
+		update employee
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="gender!=null">
+				gender=#{gender},
+			</if>
+			<if test="age!=null and age!=''">
+				age=#{age},
+			</if>
+			<if test="duty!=null and duty!=''">
+				duty=#{duty},
+			</if>
+			<if test="telephone!=null and telephone!=''">
+				telephone=#{telephone},
+			</if>
+			<if test="idCard!=null and idCard!=''">
+				id_card=#{idCard},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark},
+			</if>
+			<include refid="StaffSqlId" />
+		</set>
+		where id = #{id}
+	</update>
+		
+	<update id="deleteStaff">
+		update employee e inner join administrator a on e.id=a.id
+		set e.deleteon=now(),e.deleteby=1, e.delete_flag=1,a.deleteon=now(),a.deleteby=1,a.delete_flag=1 where e.id=#{id}
+	</update>
+	
+	<select id="findNameAndTelephone" resultType="Employee">
+		select id,name,gender,duty,telephone,address,addon from employee
+		where
+		(#{name}=null or name like concat("%",#{name},"%"))
+		and
+		(#{telephone}=null or telephone like concat("%",#{telephone},"%"))
+	</select>
+</mapper>

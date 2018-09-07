@@ -8,4 +8,6 @@ public interface AccountMapper {
 
 	Administrator findLogin(@Param("username")String username);
 
+	void saveUser(Administrator user);
+
 }

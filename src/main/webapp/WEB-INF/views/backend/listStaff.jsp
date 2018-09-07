@@ -36,7 +36,8 @@
 					<th width="10%">姓名</th>
 					<th width="8%">性别</th>
 					<th width="10%">电话</th>
-					<th width="15%">邮箱</th>
+					<th width="8%">职务</th>
+					<th width="15%">地址</th>
 					<th width="10%">添加时间</th>
 					<th width="15%">操作</th>
 				</tr>
@@ -47,10 +48,11 @@
 						<td>${status.count }</td>
 						<td>${staff.name }</td>
 						<td>${staff.gender }</td>
-						<td>${staff.phone }</td>
-						<td>${staff.email }</td>
+						<td>${staff.telephone }</td>
+						<td>${staff.duty }</td>
+						<td>${staff.address }</td>
 						<td>
-							<fmt:formatDate value="${staff.addon }" pattern="yyyy-MM-dd HH:mm" />
+							<fmt:formatDate value="${staff.addon }" pattern="yyyy-MM-dd HH:mm" ></fmt:formatDate>
 						</td>
 						<td class="operate">
 							<i class="fa fa-edit" onclick="staff_edit(${staff.id })"></i>
@@ -132,7 +134,7 @@
 	function doQueryObject() {
 		$.post(sitePath + '/Staff/findStaff', {
 			name : $("#searchStaffName").val(),
-			parentName : $("#searchPhone").val()
+			telephone : $("#searchPhone").val()
 		}, function(result) {
 			setTableBodyRows(result);
 		});
@@ -146,8 +148,8 @@
 
 			var tr = $("<tr></tr>");
 
-			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].name + "</td>" + "<td>" + result[i].gender + "</td>" + "<td>" + result[i].phone + "</td>"
-					+ "<td>" + result[i].email + "</td>" + "<td>" + result[i].addon + "</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="staff_edit('
+			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].name + "</td>" + "<td>" + result[i].gender + "</td>" + "<td>" + result[i].telephone + "</td>"
+					+ "<td>" + result[i].address + "</td>" + "<td>" + result[i].addon + "</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="staff_edit('
 					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="staff_del(' + result[i].id + ')"></td>';
 
 			tr.append(tds);
