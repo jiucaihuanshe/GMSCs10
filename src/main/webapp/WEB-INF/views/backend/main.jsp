@@ -40,7 +40,7 @@
 
 								<li class="user-footer">
 									<div class="pull-left">
-										<a href="javascript:myselfinfo('${basePath }/Account/doShowUserInfo.do?id=${staff_id}')" class="btn btn-default btn-flat">个人信息</a>
+										<a href="javascript:myselfinfo('${basePath }/Staff/doShowUserInfo?id=${staff_id}')" class="btn btn-default btn-flat">个人信息</a>
 									</div>
 									<div style="display: inline; margin-left: 20px;">
 										<a href="javascript:showChangePwdDialog();" class="btn btn-default btn-flat">修改密码</a>
@@ -62,7 +62,7 @@
 
 		<div class="content-wrapper">
 			<section class="content-header">
-				<h1 id=pageHeader"></h1>
+				<h1 id=pageHeader></h1>
 				<input type="hidden" id="currentUrl" value="">
 			</section>
 
@@ -151,13 +151,13 @@
 			});
 
 		}
-
 		function freshMainPage() {
 			var currentUrl = $('#currentUrl').val();
 			loadMainPage(currentUrl, '');
 		}
 
 		function myselfinfo(url) {
+			console.log(url);
 			$("#userModal").modal('show');
 			$("#userModalTitle").html('个人信息');
 			$("#userModalContent").load(url);
@@ -204,14 +204,14 @@
 					type : 'post',
 					url : sitePath + '/Account/doChangePassword',
 					data : {
-						newPassword : newPassword,
+						password : newPassword,
 						id : userId
 					},
 					success : function(ret) {
-						if (ret === '1') {
+						if (ret == '1') {
 							layer.msg('修改成功', {
 								icon : 1,
-								time : 1000,
+								time : 1000
 							}, function() {
 								$('#btnCancelChangePwd').trigger('click');
 								window.location = sitePath + "/Account/dologout";

@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="findStaff" resultType="Employee">
-		select id,name,gender,age,duty,telephone,id_card as idCard,address,remark from employee where id=#{id} and delete_flag=0
+		select id,name,gender,duty,telephone,address,addon from employee where id=#{id} and delete_flag=0
 	</select>
 	
 	<insert id="saveStaff" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">

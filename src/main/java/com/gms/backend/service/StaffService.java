@@ -17,5 +17,4 @@ public interface StaffService {
 	void deleteStaff(Integer id);
 
 	List<Employee> findNameAndTelephone(String name, String telephone);
-
 }

@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<title>托班管理系统后台登录</title>
+<title>超市管理系统后台登录</title>
 <link rel="stylesheet" href="${basePath}/static/plugins/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${basePath}/static/plugins/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${basePath}/static/plugins/adminlte/css/AdminLTE.min.css">
@@ -19,7 +19,7 @@
 	<div class="login-box">
 		<div class="login-logo">
 			<a href="javascript:;">
-				<b>托班管理系统</b>
+				<b>超市管理系统</b>
 				v1.0
 			</a>
 		</div>
@@ -62,14 +62,14 @@
 	<script>
 		$(function() {
 			$("#btnLogin").click(function() {
-				var account = $("#account").val();
+				var username = $("#account").val();
 				var password = $("#password").val();
 
 				$.ajax({
 					type : 'post',
 					url : '${basePath }/Account/dologin',
 					data : {
-						account : account,
+						username : username,
 						password : password
 					},
 					success : function(ret) {

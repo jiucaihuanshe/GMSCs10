@@ -72,4 +72,54 @@
                      id="txPointcut"/>
        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>          
     </aop:config>
+    
+    <!-- ******Spring整合Shiro的配置********* -->
+	<bean id="userRealm" class="com.gms.utils.UserRealm">
+		<!-- 配置凭证算法匹配器 -->
+		<property name="credentialsMatcher">
+			<bean
+				class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<property name="hashAlgorithmName" value="MD5" />
+				<!-- <property name="hashIterations" value="1024"/> -->
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 配置shiro安全管理器,是shiro框架的核心安全管理器 -->
+	<bean id="securityManager"
+		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm"></property>
+	</bean>
+	
+	<!-- shiro工厂bean配置 -->
+	<bean id="shiroFilter"
+		class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/Account/login"></property>
+		<property name="filterChainDefinitions">
+			<value>
+				/shared/** = anon
+				/static/** = anon
+				/DataApi/sendData = anon
+				/Account/dologin= anon
+				/Account/dologout= logout
+				/login.jsp= authc
+				/** = user
+			</value>
+		</property>
+	</bean>
+	
+	<!--Shiro生命周期处理器,Shiro框架会负责Shiro各种组件的生命周期 -->
+	<bean id="lifecycleBeanPostProcessor"
+		class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<!--启用shiro注解权限检查 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
 </beans>

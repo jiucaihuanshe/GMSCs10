@@ -12,4 +12,8 @@
 		administrator(id,username,password,salt,addon,addby)
 		values(#{id},#{username},#{password},#{salt},now(),#{addby})
 	</insert>
+	
+	<update id="changePassword">
+		update administrator set password=#{password},salt=#{salt},editon=#{editon},editby=#{editby} where delete_flag=0 and id=#{id}
+	</update>
 </mapper>

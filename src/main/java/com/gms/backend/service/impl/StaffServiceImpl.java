@@ -64,5 +64,4 @@ public class StaffServiceImpl implements StaffService {
 		List<Employee> userInfo = staffMapper.findNameAndTelephone(name,telephone);
 		return userInfo;
 	}
-
 }

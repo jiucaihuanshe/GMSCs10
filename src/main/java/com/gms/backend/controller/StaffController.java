@@ -82,4 +82,14 @@ public class StaffController {
 		List<Employee> userInfo = staffService.findNameAndTelephone(name, telephone);
 		return userInfo;
 	}
+	
+	@RequestMapping(value = "doShowUserInfo", method = RequestMethod.GET)
+	public ModelAndView ShowUserInfo(Integer id){
+		ModelAndView mView = new ModelAndView();
+		System.out.println(id);
+		Employee user = staffService.findStaff(id);
+		mView.addObject("modal", user);
+		mView.setViewName("backend/userModal");
+		return mView;
+	}
 }
