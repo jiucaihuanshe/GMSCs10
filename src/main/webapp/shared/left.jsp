@@ -29,9 +29,9 @@
 					</a>
 				</li>
 				<li>
-					<a href="javascript:loadMainPage('${basePath }/Student/listStudent')">
+					<a href="javascript:loadMainPage('${basePath }/Offer/listOffer')">
 						<i class="fa fa-circle-o"></i>
-						员工考勤
+						供货商信息
 					</a>
 				</li>
 			</ul>

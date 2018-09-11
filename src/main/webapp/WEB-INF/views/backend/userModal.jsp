@@ -23,7 +23,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('#btnCancel').click(function() {
-			window.parent.closePopUp();
+			$('#userModal').modal('hide');
 		});
 	})
 </script>
