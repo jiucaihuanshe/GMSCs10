@@ -1,19 +1,18 @@
 package com.gms.backend.pojo;
+
+import java.io.Serializable;
 /**
- * 员工表
+ * 仓库表
  * @author wangchaofan
  *
  */
-public class Employee extends BasePojo{
-	private static final long serialVersionUID = 4830948238971367906L;
+public class Storehouse implements Serializable{
+	private static final long serialVersionUID = -5183575588007610632L;
 	private Integer id;
 	private String name;
-	private Integer gender;
-	private Integer age;
-	private String duty;	//职务
 	private String telephone;
-	private String idCard;	//身份证
 	private String address;
+	private Integer eid;	//负责人id(员工id)
 	private String remark;
 	public Integer getId() {
 		return id;
@@ -27,41 +26,23 @@ public class Employee extends BasePojo{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getGender() {
-		return gender;
-	}
-	public void setGender(Integer gender) {
-		this.gender = gender;
-	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-	public String getDuty() {
-		return duty;
-	}
-	public void setDuty(String duty) {
-		this.duty = duty;
-	}
 	public String getTelephone() {
 		return telephone;
 	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	public String getIdCard() {
-		return idCard;
-	}
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public Integer getEid() {
+		return eid;
+	}
+	public void setEid(Integer eid) {
+		this.eid = eid;
 	}
 	public String getRemark() {
 		return remark;

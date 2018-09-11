@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gms.backend.mapper.StoreMapper">
+	<select id="listAllStore" resultType="Storehouse">
+		select id,name,telephone,address,eid,remark from storehouse
+	</select>
+	
+	<select id="findStore" resultType="Storehouse">
+		select id,name,telephone,address,eid,remark from storehouse where id=#{id}
+	</select>
+	
+	<insert id="saveStore" parameterType="Storehouse" useGeneratedKeys="true" keyProperty="id">
+		insert into storehouse(name,telephone,address,eid,remark) values(#{name},#{telephone},#{address},#{eid},#{remark})
+	</insert>
+	
+	<update id="updateStore">
+		update storehouse
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="telephone!=null and telephone!=''">
+				telephone=#{telephone},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+			<if test="eid!=null and eid!=''">
+				eid=#{eid},
+			</if>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteStore">
+		delete from storehouse where id=#{id}
+	</delete>
+	
+	<select id="findNameAndTelephone" resultType="Storehouse">
+		select id,name,telephone,address,eid,remark from storehouse
+		where
+		(#{name}=null or name like concat("%",#{name},"%"))
+		and
+		(#{telephone}=null or telephone like concat("%",#{telephone},"%"))
+	</select>
+</mapper>

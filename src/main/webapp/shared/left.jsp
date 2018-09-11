@@ -71,15 +71,15 @@
 			</a>
 			<ul class="treeview-menu">
 				<li>
-					<a href="javascript:loadMainPage('${basePath }/Admin/listSysUser')">
+					<a href="javascript:loadMainPage('${basePath }/Stock/listIntoStock')">
 						<i class="fa fa-circle-o"></i>
-						进货信息
+						进货新增
 					</a>
 				</li>
 				<li>
 					<a href="javascript:loadMainPage('${basePath }/Admin/listCard')">
 						<i class="fa fa-circle-o"></i>
-						进货新增
+						进货信息
 					</a>
 				</li>
 
@@ -93,9 +93,9 @@
 			</a>
 			<ul class="treeview-menu">
 				<li>
-					<a href="javascript:loadMainPage('${basePath }/Admin/listSysUser')">
+					<a href="javascript:loadMainPage('${basePath }/Store/listStorehouse')">
 						<i class="fa fa-circle-o"></i>
-						库存信息
+						仓库信息
 					</a>
 				</li>
 			</ul>

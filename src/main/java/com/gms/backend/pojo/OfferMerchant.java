@@ -15,6 +15,7 @@ public class OfferMerchant implements Serializable{
 	private String telephone;
 	private String address;
 	private String remark;
+	private Short deleteFlag;
 	public Integer getId() {
 		return id;
 	}
@@ -50,5 +51,11 @@ public class OfferMerchant implements Serializable{
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public Short getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(Short deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 }

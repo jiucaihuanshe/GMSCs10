@@ -62,6 +62,7 @@ create table offer_merchant(
 	telephone varchar(12),
 	address varchar(40),
 	remark varchar(50),
+	delete_flag tinyint unsigned default 0,
 	primary key (id)
 ) engine=innodb charset=utf8;
 
