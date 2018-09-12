@@ -47,4 +47,10 @@
 		and
 		(#{telephone}=null or telephone like concat("%",#{telephone},"%"))
 	</select>
+	
+	<select id="findZtreeNode" resultType="Node">
+		select id,name from employee
+		<!-- SELECT e.id,e.name,COUNT(DISTINCT s.eid) FROM employee e
+		LEFT JOIN storehouse s ON s.eid=e.id GROUP BY s.eid -->
+	</select>
 </mapper>

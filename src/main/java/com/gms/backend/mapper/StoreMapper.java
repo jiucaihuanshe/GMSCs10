@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.gms.backend.pojo.Storehouse;
+import com.gms.backend.vo.Node;
 
 public interface StoreMapper {
 
@@ -19,5 +20,7 @@ public interface StoreMapper {
 	void deleteStore(Integer id);
 
 	List<Storehouse> findNameAndTelephone(@Param("name")String name,@Param("telephone") String telephone);
+
+	List<Node> findZtreeNode();
 
 }

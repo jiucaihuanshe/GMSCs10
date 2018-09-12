@@ -23,3 +23,7 @@
 <script	src="${basePath}/static/plugins/jquery.validation/1.14.0/messages_zh.js"></script>
 <script src="${basePath}/static/plugins/adminlte/js/app.min.js"></script>
 <script src="${basePath}/static/scripts/common.js"></script>
+<script src="${basePath}/static/plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="${basePath}/static/plugins/treegrid/jquery.treegrid.extension.js"></script>
+<script src="${basePath}/static/plugins/treegrid/jquery.treegrid.min.js"></script>
+<script src="${basePath}/static/plugins/treegrid/tree.table.js"></script>

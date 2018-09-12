@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.gms.backend.mapper.StoreMapper;
 import com.gms.backend.pojo.Storehouse;
 import com.gms.backend.service.StoreService;
+import com.gms.backend.vo.Node;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -30,8 +31,6 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public void saveStore(Storehouse store) {
-		int eid = (int) SecurityUtils.getSubject().getSession().getAttribute("staff_id");
-		store.setEid(eid);
 		storeMapper.saveStore(store);
 	}
 
@@ -49,5 +48,11 @@ public class StoreServiceImpl implements StoreService {
 	public List<Storehouse> findNameAndTelephone(String name, String telephone) {
 		List<Storehouse> storeInfo = storeMapper.findNameAndTelephone(name,telephone);
 		return storeInfo;
+	}
+
+	@Override
+	public List<Node> findZtreeNode() {
+		List<Node> node = storeMapper.findZtreeNode();
+		return node;
 	}
 }

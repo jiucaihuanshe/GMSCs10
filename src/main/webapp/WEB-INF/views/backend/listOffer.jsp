@@ -65,7 +65,7 @@
 		
 		$('#offerList').dataTable({
 			"bAutoWidth": true,//自动宽度  
-            "aaSorting": [[1, "asc"]],
+            "aaSorting": [[0, "asc"]],
             "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 4,5,6 ] }],
             "sPaginationType": "full_numbers",
             "bFilter":false,

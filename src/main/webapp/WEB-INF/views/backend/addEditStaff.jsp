@@ -41,9 +41,18 @@
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="age" name="age" value="${staff.age}">
 				</div>
+				
 				<label for="duty" class="col-sm-2 control-label">职务</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="duty" name="duty" value="${staff.duty}">
+					<input type="hidden" id="hidOldDuty" value="${staff.duty}">
+					<select id="duty" class="form-control">
+						<option value="1">店长</option>
+						<option value="2">收银员</option>
+						<option value="3">理货员</option>
+						<option value="4">采购员</option>
+						<option value="5">学校接送</option>
+						<!-- 这块用动态树 -->
+					</select>
 				</div>
 			</div>
 			

@@ -18,7 +18,8 @@
   <link rel="stylesheet" href="${basePath}/static/plugins/bootstrap3-dialog/css/bootstrap-dialog.min.css">
   <link rel="stylesheet" href="${basePath}/static/plugins/sweetalert/sweetalert.css">
   <link rel="stylesheet" href="${basePath}/static/css/common.css">
-  
+  <link rel="stylesheet" href="${basePath}/static/plugins/layer/skin/default/layer.css">
+  <link rel="stylesheet" href="${basePath}/static/plugins/ztree/css/metroStyle/metroStyle.css">
 <script>
 	var sitePath = '${basePath }';
 </script>

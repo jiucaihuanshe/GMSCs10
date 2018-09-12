@@ -7,5 +7,6 @@
     </settings>
 	<typeAliases>
         <package name="com.gms.backend.pojo"/>
+        <package name="com.gms.backend.vo"/>
     </typeAliases>
 </configuration>

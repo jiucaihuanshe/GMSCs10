@@ -13,7 +13,7 @@
 					<input type="text" class="form-control" id="telephone" name="telephone" value="${store.telephone}">
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="address" class="col-sm-2 control-label">地址</label>
 				<div class="col-sm-4">
@@ -22,6 +22,13 @@
 				<label for="remark" class="col-sm-2 control-label">备注</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="remark" name="remark" value="${store.remark}">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label">负责人</label>
+				<div class="col-sm-10">
+					<ul id="menuTree" class="ztree"></ul>
 				</div>
 			</div>
 			
@@ -35,6 +42,34 @@
 </div>
 <script>
 	$(function() {
+		doLoadZTreeNodes();
+		var ztree;
+		var setting = {
+			data : {
+				simpleData : {
+					enable : true,
+					idKey : "id",
+					rootPId: null,
+				}
+			},
+			check:{
+				enable:true,
+				chkStyle: "radio",
+				nocheckInherit:true
+			}
+		}
+		function doLoadZTreeNodes(){
+			$.ajax({
+				type : 'get',
+				url : sitePath + '/Store/findTreeUI',
+				success : function(ret) {
+					ztree = $.fn.zTree.init($("#menuTree"),setting,ret);
+				}
+			});
+			
+		  }
+
+		
 		$('#btnCancel').click(function() {
 			window.parent.closePopUp();
 		});
@@ -47,7 +82,7 @@
 				telephone : {
 					required : true
 				},
-				eid : {
+				menuTree : {
 					required : true
 				}
 			},
@@ -70,6 +105,12 @@
 			formObj.telephone = $('#telephone').val();
 			formObj.address = $('#address').val();
 			formObj.remark = $('#remark').val();
+			
+			var nodes = ztree.getCheckedNodes(true);
+			var menuIds = [];
+			for(var i=0;i<nodes.length;i++){
+				formObj.eid = nodes[i].id;
+			}
 			
 			$.ajax({
 				type : 'post',

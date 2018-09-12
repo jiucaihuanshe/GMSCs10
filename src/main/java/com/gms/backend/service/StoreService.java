@@ -3,6 +3,7 @@ package com.gms.backend.service;
 import java.util.List;
 
 import com.gms.backend.pojo.Storehouse;
+import com.gms.backend.vo.Node;
 
 public interface StoreService {
 
@@ -17,5 +18,7 @@ public interface StoreService {
 	void deleteStore(Integer id);
 
 	List<Storehouse> findNameAndTelephone(String name, String telephone);
+
+	List<Node> findZtreeNode();
 
 }

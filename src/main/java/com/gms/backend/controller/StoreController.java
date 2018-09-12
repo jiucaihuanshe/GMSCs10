@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gms.backend.pojo.Storehouse;
 import com.gms.backend.service.StoreService;
+import com.gms.backend.vo.Node;
 
 @Controller
 @RequestMapping("/Store/")
@@ -65,5 +66,12 @@ public class StoreController {
 	public List<Storehouse> findStore(String name,String telephone){
 		List<Storehouse> storeInfo = storeService.findNameAndTelephone(name,telephone);
 		return storeInfo;
+	}
+	
+	@RequestMapping(value="findTreeUI",method=RequestMethod.GET)
+	@ResponseBody
+	public List<Node> findTreeUI(){
+		List<Node> node = storeService.findZtreeNode();
+		return node;
 	}
 }

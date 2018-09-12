@@ -69,7 +69,7 @@
 		
 		$('#staffList').dataTable({
 	        "bAutoWidth": false, //自适应宽度
-            "aaSorting": [[1, "asc"]],
+            "aaSorting": [[0, "asc"]],
             "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 4,5,7 ] }],
             "sPaginationType": "full_numbers",
             "bFilter":false,

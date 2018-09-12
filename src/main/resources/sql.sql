@@ -149,4 +149,20 @@ create table administrator(
 	primary key (id)
 ) engine=innodb charset=utf8;
 
+create table sys_lookup(
+	id int not null primary key auto_increment,
+	lookup_key varchar(50),
+	lookup_code varchar(50),
+	lookup_descrption varchar(200),
+	col1 varchar(50),
+	col2 varchar(50),
+	col3 varchar(50),
+	display varchar(2)
+)engine=innodb charset=utf8;
+
+insert into sys_lookup(lookup_key,lookup_code,lookup_descrption) values
+('gender','1','男'),('gender','0','女'),
+('comeway','0','父母接送'),('comeway','1','学校接送'),('comeway','2','住校')
+
+
 https://wenku.baidu.com/view/715008e24128915f804d2b160b4e767f5acf80da.html
