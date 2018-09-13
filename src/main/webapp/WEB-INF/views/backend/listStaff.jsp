@@ -13,16 +13,58 @@
 				<label for="searchPhone" class="control-label">电话：</label>
 				<input type="text" class="form-control" id="searchPhone">
 			</div>
+			<div class="col-lg-6 col-xs-12" style="margin-top: 25px">
+				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
+			</div>
 		</div>
-
+		<div class="row" style="margin-top: 15px">
+			<div class="col-lg-3 col-xs-6">
+				<button id="btnAddDuty" type="button" class="btn btn-primary">添加职务</button>
+			</div>
+		</div>
+		
+		<div class="box-body table-responsive no-padding">
+			<table id="dutyList" class="table table-hover">
+				<thead>
+					<tr>
+						<th data-field="selectItem" data-checkbox="true"></th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		
+		<%-- <div class="box-body">
+			<table id="dutyList" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<!-- <th width="15%">序号</th>
+						<th width="15%">职务</th>
+						<th width="15%">上级职务</th>
+						<th width="15%">操作</th> -->
+						<th data-field="selectItem" data-checkbox="true"></th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${dutys}" var="duty" varStatus="status">
+						<tr>
+							<td>${status.count }</td>
+							<td>${duty.name }</td>
+							<td>${duty.parentId }</td>
+							<td class="operate">
+								<i class="fa fa-edit" onclick="duty_edit(${duty.id })"></i>
+								<i class="fa fa-trash-o" onclick="duty_del(${duty.id })"></i>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div> --%>
 		<div class="row" style="margin-top: 15px">
 			<div class="col-lg-3 col-xs-6">
 				<button id="btnAddStaff" type="button" class="btn btn-primary">添加员工</button>
 			</div>
-			<div class="col-lg-6 col-xs-12">
-				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
-			</div>
-			<div class="col-lg-3 col-xs-6">
+			<div class="col-xs-9" style="text-align: right">
 				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()">刷新</button>
 			</div>
 		</div>
@@ -64,9 +106,39 @@
 		</table>
 	</div>
 </div>
-<script>
+<script type="text/javascript">
+	var colunms = [
+		{
+			field : 'selectItem',
+			radio : true
+		},
+		{
+			title : '菜单ID',
+			field : 'id',
+			visible : false,
+			align : 'center',
+			valign : 'middle',
+			width : '80px'
+		},
+		{
+			title : '菜单名称',
+			field : 'name',
+			align : 'center',
+			valign : 'middle',
+			sortable : true,
+			width : '180px'
+		},
+		{
+			title : '上级菜单',
+			field : 'parentName',
+			align : 'center',
+			valign : 'middle',
+			sortable : true,
+			width : '180px'
+		}];
+
 	$(function() {
-		
+		 doGetObjects();
 		$('#staffList').dataTable({
 	        "bAutoWidth": false, //自适应宽度
             "aaSorting": [[0, "asc"]],
@@ -90,6 +162,22 @@
             }
 	    });
 		
+		function doGetObjects() {
+			var tableId="dutyList";
+			var table = new TreeTable(tableId,sitePath +"/Staff/findDuty", colunms);
+			console.log(table);
+			console.log(colums);
+			table.setExpandColumn(2);
+			table.init();
+		}
+		
+		$('#btnAddDuty').click(function() {
+			var url = sitePath + "/Staff/addEditDuty?id=0";
+			window.popUp(url, "添加职务", "primary", 850, 500, function() {
+				$('#btnRefreshList').click();
+			}, false, false);
+		});
+		
 		$('#btnAddStaff').click(function() {
 			var url = sitePath + "/Staff/addEditStaff?id=0";
 			window.popUp(url, "添加员工", "primary", 850, 500, function() {
@@ -105,6 +193,14 @@
 	function staff_edit(staffId) {
 		var url = sitePath + "/Staff/addEditStaff?id=" + staffId;
 		window.popUp(url, "编辑员工", "primary", 850, 500, function() {
+			$('#btnRefreshList').click();
+		}, false, false);
+
+	}
+	
+	function duty_edit(dutyId) {
+		var url = sitePath + "/Staff/addEditDuty?id=" + dutyId;
+		window.popUp(url, "编辑职务", "primary", 850, 500, function() {
 			$('#btnRefreshList').click();
 		}, false, false);
 

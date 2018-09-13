@@ -164,5 +164,11 @@ insert into sys_lookup(lookup_key,lookup_code,lookup_descrption) values
 ('gender','1','男'),('gender','0','女'),
 ('comeway','0','父母接送'),('comeway','1','学校接送'),('comeway','2','住校')
 
+create table employee_duty(
+	id INT AUTO_INCREMENT,
+	parentId INT,
+	NAME VARCHAR(50),
+	PRIMARY KEY(id)
+)ENGINE=INNODB CHARSET=utf8
 
 https://wenku.baidu.com/view/715008e24128915f804d2b160b4e767f5acf80da.html

@@ -1,6 +1,7 @@
 package com.gms.backend.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -12,6 +13,7 @@ import com.gms.backend.mapper.AccountMapper;
 import com.gms.backend.mapper.StaffMapper;
 import com.gms.backend.pojo.Administrator;
 import com.gms.backend.pojo.Employee;
+import com.gms.backend.pojo.EmployeeDuty;
 import com.gms.backend.service.StaffService;
 
 @Service
@@ -63,5 +65,23 @@ public class StaffServiceImpl implements StaffService {
 	public List<Employee> findNameAndTelephone(String name, String telephone) {
 		List<Employee> userInfo = staffMapper.findNameAndTelephone(name,telephone);
 		return userInfo;
+	}
+	@Override
+	public List<EmployeeDuty> findTreeUI() {
+		List<EmployeeDuty> eDuties = staffMapper.findTreeUI();
+		return eDuties;
+	}
+	@Override
+	public void saveDuty(EmployeeDuty eDuty) {
+		staffMapper.saveDuty(eDuty);
+	}
+	@Override
+	public void updateDuty(EmployeeDuty eDuty) {
+		staffMapper.updateDuty(eDuty);
+	}
+	@Override
+	public List<Map<String, Object>> findDuty() {
+		List<Map<String, Object>> eDuties = staffMapper.findDuty();
+		return eDuties;
 	}
 }

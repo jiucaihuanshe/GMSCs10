@@ -2,6 +2,7 @@ package com.gms.backend.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gms.backend.pojo.Employee;
+import com.gms.backend.pojo.EmployeeDuty;
 import com.gms.backend.service.StaffService;
 
 /**
@@ -31,6 +33,8 @@ public class StaffController {
 	public ModelAndView listStaff() {
 		ModelAndView mView = new ModelAndView();
 		List<Employee> staffs = staffService.findAllStaff();
+		/*List<EmployeeDuty> eDuties = staffService.findTreeUI();
+		mView.addObject("dutys", eDuties);*/
 		mView.addObject("staffs", staffs);
 		mView.setViewName("backend/listStaff");
 		return mView;
@@ -86,10 +90,41 @@ public class StaffController {
 	@RequestMapping(value = "doShowUserInfo", method = RequestMethod.GET)
 	public ModelAndView ShowUserInfo(Integer id){
 		ModelAndView mView = new ModelAndView();
-		System.out.println(id);
 		Employee user = staffService.findStaff(id);
 		mView.addObject("modal", user);
 		mView.setViewName("backend/userModal");
 		return mView;
+	}
+	
+	@RequestMapping(value="addEditDuty",method=RequestMethod.GET)
+	public ModelAndView addEditDuty(){
+		ModelAndView mView = new ModelAndView();
+		mView.setViewName("backend/employeeDuty");
+		return mView;
+	}
+	
+	@RequestMapping(value="findTreeUI",method=RequestMethod.GET)
+	@ResponseBody
+	public List<EmployeeDuty> findTreeUI(){
+		List<EmployeeDuty> eDuties = staffService.findTreeUI();
+		return eDuties;
+	}
+	
+	@RequestMapping(value="findDuty",method=RequestMethod.GET)
+	@ResponseBody
+	public List<Map<String, Object>> findDuty(){
+		List<Map<String, Object>> eDuties = staffService.findDuty();
+		return eDuties;
+	}
+	
+	@RequestMapping(value="doAddEditDuty",method=RequestMethod.POST)
+	@ResponseBody
+	public String doAddEditDuty(EmployeeDuty eDuty){
+		if(eDuty.getId()==0){
+			staffService.saveDuty(eDuty);
+		}else{
+			staffService.updateDuty(eDuty);
+		}
+		return "ok";
 	}
 }

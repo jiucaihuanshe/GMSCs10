@@ -68,4 +68,29 @@
 		and
 		(#{telephone}=null or telephone like concat("%",#{telephone},"%"))
 	</select>
+	
+	<select id="findTreeUI" resultType="EmployeeDuty">
+		select id,name,parentId from employee_duty
+	</select>
+	
+	<select id="findDuty" resultType="Map">
+		SELECT e.*,(SELECT p.name FROM employee_duty p WHERE p.id=e.parentId) AS parentName FROM employee_duty e
+	</select>
+	
+	<insert id="saveDuty" parameterType="EmployeeDuty" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO employee_duty(parentId,NAME) VALUES(#{parentId},#{name})
+	</insert>
+	
+	<update id="updateDuty">
+		update employy_duty
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="parentId!=null and parentId!=''">
+				parentId=#{parentId},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
 </mapper>
