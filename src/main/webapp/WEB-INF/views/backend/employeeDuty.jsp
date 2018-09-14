@@ -105,7 +105,6 @@
 			
 			formObj.parentId = $("#dutyForm").data("parentId"),
 			
-			console.log(formObj);
 			$.ajax({
 				type : 'post',
 				url : sitePath + '/Staff/doAddEditDuty',

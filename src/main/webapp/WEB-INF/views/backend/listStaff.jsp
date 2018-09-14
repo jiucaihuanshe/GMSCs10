@@ -113,7 +113,7 @@
 			radio : true
 		},
 		{
-			title : '菜单ID',
+			title : '职务ID',
 			field : 'id',
 			visible : false,
 			align : 'center',
@@ -121,7 +121,7 @@
 			width : '80px'
 		},
 		{
-			title : '菜单名称',
+			title : '职务名称',
 			field : 'name',
 			align : 'center',
 			valign : 'middle',
@@ -129,7 +129,15 @@
 			width : '180px'
 		},
 		{
-			title : '上级菜单',
+			title : '排序号',
+			field : 'parentId',
+			align : 'center',
+			valign : 'middle',
+			sortable : true,
+			width : '100px'
+		}, 
+		{
+			title : '上级职务',
 			field : 'parentName',
 			align : 'center',
 			valign : 'middle',
@@ -138,7 +146,7 @@
 		}];
 
 	$(function() {
-		 doGetObjects();
+		doGetObjects();
 		$('#staffList').dataTable({
 	        "bAutoWidth": false, //自适应宽度
             "aaSorting": [[0, "asc"]],
@@ -162,15 +170,6 @@
             }
 	    });
 		
-		function doGetObjects() {
-			var tableId="dutyList";
-			var table = new TreeTable(tableId,sitePath +"/Staff/findDuty", colunms);
-			console.log(table);
-			console.log(colums);
-			table.setExpandColumn(2);
-			table.init();
-		}
-		
 		$('#btnAddDuty').click(function() {
 			var url = sitePath + "/Staff/addEditDuty?id=0";
 			window.popUp(url, "添加职务", "primary", 850, 500, function() {
@@ -189,6 +188,16 @@
 			doQueryObject();
 		});
 	});
+	
+	function doGetObjects(){
+		//1.构建treeTable对象
+		var tableId="dutyList";
+		var url=sitePath+"/Staff/findDuty";
+		var treeTable=new TreeTable(tableId, url, colunms);
+		//2.初始化treeTable
+		treeTable.setExpandColumn(2);
+		treeTable.init();
+	}
 
 	function staff_edit(staffId) {
 		var url = sitePath + "/Staff/addEditStaff?id=" + staffId;

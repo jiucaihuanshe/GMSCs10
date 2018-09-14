@@ -114,6 +114,7 @@ public class StaffController {
 	@ResponseBody
 	public List<Map<String, Object>> findDuty(){
 		List<Map<String, Object>> eDuties = staffService.findDuty();
+		System.out.println(eDuties);
 		return eDuties;
 	}
 	

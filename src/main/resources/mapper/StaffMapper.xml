@@ -73,12 +73,12 @@
 		select id,name,parentId from employee_duty
 	</select>
 	
-	<select id="findDuty" resultType="Map">
+	<select id="findDuty" resultType="map">
 		SELECT e.*,(SELECT p.name FROM employee_duty p WHERE p.id=e.parentId) AS parentName FROM employee_duty e
 	</select>
 	
 	<insert id="saveDuty" parameterType="EmployeeDuty" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO employee_duty(parentId,NAME) VALUES(#{parentId},#{name})
+		INSERT INTO employee_duty(parentId,name) VALUES(#{parentId},#{name})
 	</insert>
 	
 	<update id="updateDuty">
