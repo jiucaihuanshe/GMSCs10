@@ -57,8 +57,8 @@
 			
 			<div class="form-group">
 				<label for="remark" class="col-sm-2 control-label">备注</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="remark" name="remark" value="${staff.remark}">
+				<div class="col-sm-10">
+					<textarea rows="4" id="remark" name="remark" class="form-control">${staff.remark}</textarea>
 				</div>
 			</div>
 			

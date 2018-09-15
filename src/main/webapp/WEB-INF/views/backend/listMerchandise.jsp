@@ -6,12 +6,12 @@
 	<div class="box-header">
 		<div class="row">
 			<div class="col-lg-3 col-xs-6">
-				<label for="searchStoreName" class="control-label"> 仓库名称 </label>
-				<input type="text" class="form-control" id="searchStoreName">
+				<label for="barCode" class="control-label"> 条形码编号： </label>
+				<input type="text" class="form-control" id="barCode">
 			</div>
 			<div class="col-lg-3 col-xs-6">
-				<label for="searchPhone" class="control-label">电话：</label>
-				<input type="text" class="form-control" id="searchPhone">
+				<label for="tradeName" class="control-label">商品名称：</label>
+				<input type="text" class="form-control" id="tradeName">
 			</div>
 			<div class="col-lg-6 col-xs-12" style="margin-top: 25px">
 				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
@@ -20,7 +20,7 @@
 
 		<div class="row" style="margin-top: 15px">
 			<div class="col-lg-3 col-xs-6">
-				<button id="btnAddStore" type="button" class="btn btn-primary">添加仓库</button>
+				<button id="btnAddMerch" type="button" class="btn btn-primary">添加商品</button>
 			</div>
 			<div class="col-xs-9">
 				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()">刷新</button>
@@ -29,30 +29,35 @@
 	</div>
 
 	<div class="box-body">
-		<table id="storeList" class="table table-bordered table-hover">
+		<table id="merchList" class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th width="8%">序号</th>
-					<th width="10%">仓库名称</th>
-					<th width="10%">电话</th>
-					<th width="15%">地址</th>
-					<th width="8%">负责人</th>
-					<th width="15%">备注</th>
-					<th width="15%">操作</th>
+					<th width="5%">序号</th>
+					<th width="15%">条形码编号</th>
+					<th width="9%">商品名称</th>
+					<th width="10%">单位编号</th>
+					<th width="9%">进货价格</th>
+					<th width="9%">预售价格</th>
+					<th width="5%">折扣率</th>
+					<th width="9%">商品类别编号</th>
+					<th width="10%">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${stores}" var="store" varStatus="status">
+				<c:forEach items="${merchs}" var="merch" varStatus="status">
 					<tr>
 						<td>${status.count }</td>
-						<td>${store.name }</td>
-						<td>${store.telephone }</td>
-						<td>${store.address }</td>
-						<td>${store.eid }</td>
-						<td>${store.remark }</td>
+						<td>${merch.barCode }</td>
+						<td>${merch.tradeName }</td>
+						<td>${merch.uid }</td>
+						<td>${merch.purchasePrice }</td>
+						<td>${merch.presellPrice }</td>
+						<td>${merch.discount }</td>
+						<td>${merch.mid }</td>
+						<td>${merch.remark }</td>
 						<td class="operate">
-							<i class="fa fa-edit" onclick="store_edit(${store.id })"></i>
-							<i class="fa fa-trash-o" onclick="store_del(${store.id })"></i>
+							<i class="fa fa-edit" onclick="merch_edit(${merch.id })"></i>
+							<i class="fa fa-trash-o" onclick="merch_del(${merch.id })"></i>
 						</td>
 					</tr>
 				</c:forEach>
@@ -63,10 +68,10 @@
 <script>
 	$(function() {
 		
-		$('#storeList').dataTable({
+		$('#merchList').dataTable({
 			"bAutoWidth": true,//自动宽度  
             "aaSorting": [[0, "asc"]],
-            "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 4,5,6 ] }],
+            "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 6,7,8 ] }],
             "sPaginationType": "full_numbers",
             "bFilter":false,
             "oLanguage": {
@@ -86,9 +91,9 @@
             }
 	    });
 		
-		$('#btnAddStore').click(function() {
-			var url = sitePath + "/Store/addEditStore?id=0";
-			window.popUp(url, "添加供货商", "primary", 850, 500, function() {
+		$('#btnAddMerch').click(function() {
+			var url = sitePath + "/Offer/addEditOffer?id=0";
+			window.popUp(url, "添加商品", "primary", 850, 500, function() {
 				$('#btnRefreshList').click();
 			}, false, false);
 		});
@@ -98,16 +103,16 @@
 		});
 	});
 
-	function store_edit(storeId) {
-		var url = sitePath + "/Store/addEditStore?id=" + storeId;
+	function offer_edit(offerId) {
+		var url = sitePath + "/Offer/addEditOffer?id=" + offerId;
 		window.popUp(url, "编辑供应商", "primary", 850, 500, function() {
 			$('#btnRefreshList').click();
 		}, false, false);
 
 	}
 
-	function store_del(storeId) {
-		if (!storeId) {
+	function offer_del(offerId) {
+		if (!offerId) {
 			return;
 		}
 
@@ -127,9 +132,9 @@
 		function del() {
 			$.ajax({
 				type : 'post',
-				url : sitePath + '/Store/deleteStore',
+				url : sitePath + '/Offer/deleteOffer',
 				data : {
-					id : storeId
+					id : offerId
 				},
 				success : function() {
 					$('#btnRefreshList').click();
@@ -140,25 +145,25 @@
 	}
 
 	function doQueryObject() {
-		$.post(sitePath + '/Store/findStore', {
-			name : $("#searchStoreName").val(),
-			telephone : $("#searchPhone").val()
+		$.post(sitePath + '/Offer/findOffer', {
+			barCode : $("#barCode").val(),
+			tradeName : $("#tradeName").val()
 		}, function(result) {
 			setTableBodyRows(result);
 		});
 	}
 
 	function setTableBodyRows(result) {
-		var tBody = $("#storeList>tbody");
+		var tBody = $("#merchList>tbody");
 		tBody.empty();
 
 		for ( var i in result) {
 
 			var tr = $("<tr></tr>");
 
-			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].name + "</td>" + "<td>" + result[i].telephone + "</td>"
-					+ "<td>" + result[i].address + "</td>" +  "<td>" + result[i].eid + "</td>" +"<td>" + result[i].remark + "</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="store_edit('
-					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="store_del(' + result[i].id + ')"></td>';
+			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].name + "</td>" + "<td>" + result[i].linkman + "</td>" + "<td>" + result[i].telephone + "</td>"
+					+ "<td>" + result[i].address + "</td>" + "<td>" + result[i].remark + "</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="offer_edit('
+					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="offer_del(' + result[i].id + ')"></td>';
 
 			tr.append(tds);
 			tBody.append(tr);

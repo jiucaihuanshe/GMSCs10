@@ -11,7 +11,7 @@ public class IntoParticular implements Serializable{
 	private static final long serialVersionUID = 8810424110415518080L;
 	private Integer id;
 	private Integer inid;	//进货表id
-	private Integer bar_code;	//商品表(商品条形码)
+	private Integer barCode;	//商品表(商品条形码)
 	private Integer sum;	//进货数量
 	private String remark;
 	public Integer getId() {
@@ -26,11 +26,11 @@ public class IntoParticular implements Serializable{
 	public void setInid(Integer inid) {
 		this.inid = inid;
 	}
-	public Integer getBar_code() {
-		return bar_code;
+	public Integer getBarCode() {
+		return barCode;
 	}
-	public void setBar_code(Integer bar_code) {
-		this.bar_code = bar_code;
+	public void setBarCode(Integer barCode) {
+		this.barCode = barCode;
 	}
 	public Integer getSum() {
 		return sum;

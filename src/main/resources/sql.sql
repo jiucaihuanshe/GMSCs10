@@ -29,7 +29,7 @@ create table employee(
 	name varchar(10) not null,
 	gender tinyint unsigned,
 	age tinyint unsigned,
-	duty varchar(16),
+	duty int,
 	telephone varchar(12),
 	id_card varchar(50),
 	address varchar(40),
@@ -76,6 +76,7 @@ create table merchandise (
 	discount decimal(4,0) default '1',
 	mid int(11) not null,
 	remark varchar(50),
+	delete_flag tinyint unsigned default 0,
 	primary key (id)
 ) engine=innodb charset=utf8;
 

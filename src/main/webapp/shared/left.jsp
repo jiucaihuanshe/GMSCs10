@@ -71,6 +71,12 @@
 			</a>
 			<ul class="treeview-menu">
 				<li>
+					<a href="javascript:loadMainPage('${basePath }/Stock/listMerchandise')">
+						<i class="fa fa-circle-o"></i>
+						商品信息
+					</a>
+				</li>
+				<li>
 					<a href="javascript:loadMainPage('${basePath }/Stock/listIntoStock')">
 						<i class="fa fa-circle-o"></i>
 						进货新增
