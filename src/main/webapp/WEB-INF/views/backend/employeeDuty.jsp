@@ -4,7 +4,7 @@
 		<div class="box-body">
 			<div class="form-group">
 				<input type="hidden" id="hidSysDutyId" value="${duty.id}">
-				<label for="dutyName" class="col-sm-2 control-label required">职务新增</label>
+				<label for="dutyName" class="col-sm-2 control-label required">职务</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="dutyName" name="dutyName" value="${duty.name}">
 				</div>
@@ -13,7 +13,7 @@
 				<label for="parentId" class="col-sm-2 control-label">上级职务</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control "
-						readonly="readonly" id="parentId" placeholder="上级职务">
+						readonly="readonly" id="parentId" placeholder="上级职务" value="${duty.parentName}">
 				</div>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 <div class="layui-layer layui-layer-page layui-layer-molv layer-anim" id="menuLayer" type="page" times="2" showtime="0" contype="object"
 		style="z-index:59891016; width: 300px; height: 400px; top: 15px; left: 300px; display:none">
 		<div class="layui-layer-title" style="cursor: move;">选择菜单</div>
-		<div class="layui-layer-content" style="height: 258px;">
+		<div class="layui-layer-content" style="height: 300px;">
 			<div style="padding: 10px;" class="layui-layer-wrap">
 				<ul id="menuTree" class="ztree"></ul>    <!-- 动态加载树 -->
 			</div>
@@ -40,22 +40,23 @@
 </div>
 
 <script>
+	var ztree;
+	var setting = {
+		data : {
+			simpleData : {
+				enable : true,
+				idKey : "id",
+				pIdKey : "parentId",
+				rootPId : null
+			}
+		}
+	}
 	$(function() {
 		$("#dutyForm").on("click","#parentId",doLoadZTreeNodes);
 		$("#menuLayer").on("click", ".btn-cancle", doHideTree);
 		$('#menuLayer').on('click','.btn-confirm',doSetSelectedNode);
-		var ztree;
-		var setting = {
-			data : {
-				simpleData : {
-					enable : true,
-					idKey : "id",
-					pIdKey : "parentId",
-					rootPId : null
-				}
-			}
-		}
-		function doLoadZTreeNodes(){
+	});
+	function doLoadZTreeNodes(){
 			$('#menuLayer').css('display','block');
 			$.ajax({
 				type : 'get',
@@ -103,7 +104,7 @@
 
 			formObj.name = $('#dutyName').val();
 			
-			formObj.parentId = $("#dutyForm").data("parentId"),
+			formObj.parentId = $("#dutyForm").data("parentId");
 			
 			$.ajax({
 				type : 'post',
@@ -114,5 +115,4 @@
 				}
 			});
 		}
-	})
 </script>

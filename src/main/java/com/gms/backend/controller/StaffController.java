@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gms.backend.pojo.Employee;
 import com.gms.backend.pojo.EmployeeDuty;
 import com.gms.backend.service.StaffService;
+import com.gms.backend.vo.DutyInfo;
+import com.gms.backend.vo.EmployeeDutyInfo;
+import com.gms.backend.vo.JsonResult;
 
 /**
  * 员工表 需要有保存和修改，删除(标记为1) 判断delete_flag=0
@@ -33,8 +36,6 @@ public class StaffController {
 	public ModelAndView listStaff() {
 		ModelAndView mView = new ModelAndView();
 		List<Employee> staffs = staffService.findAllStaff();
-		/*List<EmployeeDuty> eDuties = staffService.findTreeUI();
-		mView.addObject("dutys", eDuties);*/
 		mView.addObject("staffs", staffs);
 		mView.setViewName("backend/listStaff");
 		return mView;
@@ -44,9 +45,9 @@ public class StaffController {
 	public ModelAndView addEditStaff(int id) {
 		ModelAndView mView = new ModelAndView();
 
-		Employee staff = null;
+		EmployeeDutyInfo staff = null;
 		if (id == 0) {
-			staff = new Employee();
+			staff = new EmployeeDutyInfo();
 		} else {
 			staff = staffService.findStaff(id);
 		}
@@ -90,15 +91,22 @@ public class StaffController {
 	@RequestMapping(value = "doShowUserInfo", method = RequestMethod.GET)
 	public ModelAndView ShowUserInfo(Integer id){
 		ModelAndView mView = new ModelAndView();
-		Employee user = staffService.findStaff(id);
+		EmployeeDutyInfo user = staffService.findStaff(id);
 		mView.addObject("modal", user);
 		mView.setViewName("backend/userModal");
 		return mView;
 	}
 	
 	@RequestMapping(value="addEditDuty",method=RequestMethod.GET)
-	public ModelAndView addEditDuty(){
+	public ModelAndView addEditDuty(int id){
 		ModelAndView mView = new ModelAndView();
+		DutyInfo eDuty = null;
+		if(id==0){
+			eDuty = new DutyInfo();
+		}else{
+			eDuty = staffService.findDutyId(id);
+		}
+		mView.addObject("duty", eDuty);
 		mView.setViewName("backend/employeeDuty");
 		return mView;
 	}
@@ -112,10 +120,9 @@ public class StaffController {
 	
 	@RequestMapping(value="findDuty",method=RequestMethod.GET)
 	@ResponseBody
-	public List<Map<String, Object>> findDuty(){
+	public JsonResult findDuty(){
 		List<Map<String, Object>> eDuties = staffService.findDuty();
-		System.out.println(eDuties);
-		return eDuties;
+		return new JsonResult(1, "ok", eDuties);
 	}
 	
 	@RequestMapping(value="doAddEditDuty",method=RequestMethod.POST)
@@ -126,6 +133,24 @@ public class StaffController {
 		}else{
 			staffService.updateDuty(eDuty);
 		}
+		return "ok";
+	}
+	
+	@RequestMapping(value="findDutyCount",method=RequestMethod.GET)
+	@ResponseBody
+	public int findDutyCount(int id){
+		boolean isCount = staffService.findDutyCount(id);
+		if (isCount) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
+	@RequestMapping(value="deleteDuty",method=RequestMethod.GET)
+	@ResponseBody
+	public String deleteDutyInfo(int id){
+		staffService.deleteDuty(id);
 		return "ok";
 	}
 }

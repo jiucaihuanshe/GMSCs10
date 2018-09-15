@@ -5,12 +5,14 @@ import java.util.Map;
 
 import com.gms.backend.pojo.Employee;
 import com.gms.backend.pojo.EmployeeDuty;
+import com.gms.backend.vo.DutyInfo;
+import com.gms.backend.vo.EmployeeDutyInfo;
 
 public interface StaffService {
 
 	List<Employee> findAllStaff();
 
-	Employee findStaff(int id);
+	EmployeeDutyInfo findStaff(int id);
 
 	int saveStaff(Employee staff);
 
@@ -27,4 +29,10 @@ public interface StaffService {
 	void updateDuty(EmployeeDuty eDuty);
 
 	List<Map<String, Object>> findDuty();
+
+	DutyInfo findDutyId(int id);
+
+	void deleteDuty(int id);
+
+	boolean findDutyCount(int id);
 }

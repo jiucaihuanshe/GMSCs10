@@ -14,8 +14,11 @@
 		select id,name,gender,duty,telephone,address,addon from employee where delete_flag=0
 	</select>
 	
-	<select id="findStaff" resultType="Employee">
-		select id,name,gender,age,duty,telephone,id_card as idCard,address,remark,addon from employee where id=#{id} and delete_flag=0
+	<select id="findStaff" resultType="EmployeeDutyInfo">
+		select e.id,e.name,e.gender,e.age,e.duty,e.id_card as idCard,e.telephone,e.address,e.remark,
+		(select p.name from employee_duty p where p.id=ed.id) as parentName
+		from employee e join employee_duty ed on  e.duty=ed.id
+		where e.id=#{id} and delete_flag=0
 	</select>
 	
 	<insert id="saveStaff" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">
@@ -82,7 +85,7 @@
 	</insert>
 	
 	<update id="updateDuty">
-		update employy_duty
+		update employee_duty
 		<set>
 			<if test="name!=null and name!=''">
 				name=#{name},
@@ -93,4 +96,16 @@
 		</set>
 		where id=#{id}
 	</update>
+	
+	<select id="findDutyId" resultType="DutyInfo">
+		select e.id,e.parentId,e.name,(select p.name from employee_duty p where p.id=e.parentId) as parentName from employee_duty e where id=#{id}
+	</select>
+	
+	<delete id="deleteDuty">
+		delete from employee_duty where id=#{id}
+	</delete>
+	
+	<select id="findDutyCount" resultType="Integer">
+		select count(*) from employee_duty where parentId=#{id}
+	</select>
 </mapper>

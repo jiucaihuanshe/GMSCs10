@@ -1,20 +1,21 @@
-package com.gms.backend.pojo;
-/**
- * 员工表
- * @author wangchaofan
- *
- */
-public class Employee extends BasePojo{
-	private static final long serialVersionUID = 4830948238971367906L;
+package com.gms.backend.vo;
+
+import com.gms.backend.pojo.BasePojo;
+
+public class EmployeeDutyInfo extends BasePojo{
+	private static final long serialVersionUID = -1874339199910148929L;
 	private Integer id;
 	private String name;
 	private Integer gender;
 	private Integer age;
-	private Integer duty;	//职务
+	private int duty;	//职务
 	private String telephone;
 	private String idCard;	//身份证
 	private String address;
 	private String remark;
+	
+	private Integer parentId;
+	private String parentName;
 	public Integer getId() {
 		return id;
 	}
@@ -39,10 +40,10 @@ public class Employee extends BasePojo{
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	public Integer getDuty() {
+	public int getDuty() {
 		return duty;
 	}
-	public void setDuty(Integer duty) {
+	public void setDuty(int duty) {
 		this.duty = duty;
 	}
 	public String getTelephone() {
@@ -68,5 +69,17 @@ public class Employee extends BasePojo{
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public Integer getParentId() {
+		return parentId;
+	}
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 }

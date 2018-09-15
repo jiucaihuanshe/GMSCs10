@@ -7,12 +7,14 @@ import org.apache.ibatis.annotations.Param;
 
 import com.gms.backend.pojo.Employee;
 import com.gms.backend.pojo.EmployeeDuty;
+import com.gms.backend.vo.DutyInfo;
+import com.gms.backend.vo.EmployeeDutyInfo;
 
 public interface StaffMapper {
 
 	List<Employee> findAllStaff();
 
-	Employee findStaff(int id);
+	EmployeeDutyInfo findStaff(int id);
 
 	int saveStaff(Employee staff);
 
@@ -30,4 +32,9 @@ public interface StaffMapper {
 
 	List<Map<String, Object>> findDuty();
 
+	DutyInfo findDutyId(int id);
+
+	void deleteDuty(int id);
+
+	int findDutyCount(int id);
 }

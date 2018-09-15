@@ -15,6 +15,8 @@ import com.gms.backend.pojo.Administrator;
 import com.gms.backend.pojo.Employee;
 import com.gms.backend.pojo.EmployeeDuty;
 import com.gms.backend.service.StaffService;
+import com.gms.backend.vo.DutyInfo;
+import com.gms.backend.vo.EmployeeDutyInfo;
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -29,8 +31,8 @@ public class StaffServiceImpl implements StaffService {
 		return staffs;
 	}
 	@Override
-	public Employee findStaff(int id) {
-		Employee staff = staffMapper.findStaff(id);
+	public EmployeeDutyInfo findStaff(int id) {
+		EmployeeDutyInfo staff = staffMapper.findStaff(id);
 		return staff;
 	}
 	@Override
@@ -83,5 +85,22 @@ public class StaffServiceImpl implements StaffService {
 	public List<Map<String, Object>> findDuty() {
 		List<Map<String, Object>> eDuties = staffMapper.findDuty();
 		return eDuties;
+	}
+	@Override
+	public DutyInfo findDutyId(int id) {
+		DutyInfo eDuty = staffMapper.findDutyId(id);
+		return eDuty;
+	}
+	@Override
+	public void deleteDuty(int id) {
+		staffMapper.deleteDuty(id);
+	}
+	@Override
+	public boolean findDutyCount(int id) {
+		int rows = staffMapper.findDutyCount(id);
+		if(rows>=1){
+			return true;	//说明有子职务
+		}
+		return false;
 	}
 }
