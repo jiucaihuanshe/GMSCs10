@@ -79,30 +79,6 @@
 				"aTargets" : [ 6,7,8 ]}] 
 		});
 		
-		
-		/* $('#merchList').dataTable({
-			"bAutoWidth": true,//自动宽度  
-            "aaSorting": [[0, "asc"]],
-            "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 6,7,8 ] }],
-            "sPaginationType": "full_numbers",
-            "bFilter":false,
-            "oLanguage": {
-                "sProcessing": "正在加载中......",
-                "sLengthMenu": "每页显示 _MENU_ 条记录",
-                "sZeroRecords": "对不起，查询不到相关数据！",
-                "sEmptyTable": "表中无数据存在！",
-                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
-                "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
-                "sSearch": "搜索",
-                "oPaginate": {
-                    "sFirst": "首页",
-                    "sPrevious": "上一页",
-                    "sNext": "下一页",
-                    "sLast": "末页"
-                }
-            }
-	    }); */
-		
 		$('#btnAddMerch').click(function() {
 			var url = sitePath + "/Offer/addEditOffer?id=0";
 			window.popUp(url, "添加商品", "primary", 850, 500, function() {
