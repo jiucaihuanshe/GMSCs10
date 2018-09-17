@@ -34,13 +34,13 @@
 				<tr>
 					<th width="5%">序号</th>
 					<th width="15%">条形码编号</th>
-					<th width="9%">商品名称</th>
+					<th width="10%">商品名称</th>
 					<th width="10%">单位编号</th>
-					<th width="9%">进货价格</th>
-					<th width="9%">预售价格</th>
+					<th width="5%">进货价格</th>
+					<th width="5%">预售价格</th>
 					<th width="5%">折扣率</th>
-					<th width="9%">商品类别编号</th>
-					<th width="10%">操作</th>
+					<th width="8%">商品类别编号</th>
+					<th width="8%">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -67,8 +67,20 @@
 </div>
 <script>
 	$(function() {
-		
 		$('#merchList').dataTable({
+			"searching": true,
+			"paging": true,
+			"info": true,
+			"bAutoWidth": true,
+			"aaSorting" : [ [ 0, "asc" ] ],
+			"bStateSave" : true,
+			"aoColumnDefs" : [ {
+				"orderable" : false,
+				"aTargets" : [ 6,7,8 ]}] 
+		});
+		
+		
+		/* $('#merchList').dataTable({
 			"bAutoWidth": true,//自动宽度  
             "aaSorting": [[0, "asc"]],
             "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 6,7,8 ] }],
@@ -89,7 +101,7 @@
                     "sLast": "末页"
                 }
             }
-	    });
+	    }); */
 		
 		$('#btnAddMerch').click(function() {
 			var url = sitePath + "/Offer/addEditOffer?id=0";
