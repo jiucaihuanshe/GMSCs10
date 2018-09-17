@@ -5,6 +5,7 @@ use gmscs10;
 create table merchandise_type (
 	tid int(4) auto_increment,
 	tname varchar(20),
+	tarentId int,
 	tremark varchar(50),
 	primary key (tid)
 ) engine=innodb charset=utf8;

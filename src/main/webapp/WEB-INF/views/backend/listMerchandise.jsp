@@ -33,9 +33,9 @@
 			<thead>
 				<tr>
 					<th width="5%">序号</th>
-					<th width="15%">条形码编号</th>
-					<th width="10%">商品名称</th>
-					<th width="10%">单位编号</th>
+					<th width="10%">条形码编号</th>
+					<th width="15%">商品名称</th>
+					<th width="5%">单位编号</th>
 					<th width="5%">进货价格</th>
 					<th width="5%">预售价格</th>
 					<th width="5%">折扣率</th>
