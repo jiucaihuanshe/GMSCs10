@@ -17,7 +17,6 @@
 
 		<div class="row" style="margin-top: 15px">
 			<div class="col-lg-3 col-xs-6">
-				<button id="btnAddMerch" type="button" class="btn btn-primary">添加商品</button>
 				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
 				<button id="btnClear" type="button" class="btn btn-default">重置</button>
 				<button id="btnRefreshList" type="button" class="btn btn-success" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
@@ -61,9 +60,66 @@
 			</tbody>
 		</table>
 	</div>
+	
+		<div class="row box-header" style="margin-top: 15px">
+			<div class="col-lg-3 col-xs-6">
+				<button id="btnAddType" type="button" class="btn btn-primary">添加类别</button>
+				<button id="btnAddType" type="button" class="btn btn-primary" onclick="type_edit(${type_id})">修改类别</button>
+				<button id="btnDelType" type="button" class="btn btn-primary" onclick="type_del(${type_id})">删除类别</button>
+			</div>
+		</div>
+		
+		<div class="box-body table-responsive no-padding">
+			<table id="typeList" class="table table-hover">
+				<thead>
+				   <tr>
+					<th data-field="selectItem" data-checkbox="true"></th>
+				  </tr>
+				</thead>
+			</table>
+		</div>
 </div>
-<script>
+<script type="text/javascript">
+	var columns = [
+       		{
+       			field : 'selectItem',
+       			radio : true
+       		},
+       		{
+       			title : '类别ID',
+       			field : 'id',
+       			visible : false,
+       			align : 'center',
+       			valign : 'middle',
+       			width : '80px'
+       		},
+       		{
+       			title : '类别名称',
+       			field : 'name',
+       			align : 'center',
+       			valign : 'middle',
+       			sortable : true,
+       			width : '180px'
+       		},
+       		{
+       			title : '上级类别',
+       			field : 'tarentName',
+       			align : 'center',
+       			valign : 'middle',
+       			sortable : true,
+       			width : '180px'
+       		}, 
+       		{
+       			title : '备注',
+       			field : 'tremark',
+       			align : 'center',
+       			valign : 'middle',
+       			sortable : true,
+       			width : '160px'
+       		}];
+       		
 	$(function() {
+		doGetObjects();
 		$('#merchList').dataTable({
 			"searching": true,
 			"paging": true,
@@ -75,13 +131,13 @@
 			"aoColumnDefs" : [{"orderable" : false,"aTargets" : [ 6,7,8 ]}] 
 		});
 		
-		$('#btnAddMerch').click(function() {
-			var url = sitePath + "/Offer/addEditOffer?id=0";
-			window.popUp(url, "添加商品", "primary", 850, 500, function() {
+		$('#btnAddType').click(function() {
+			var url = sitePath + "/Stock/addEditStock?id=0";
+			window.popUp(url, "添加类别", "primary", 850, 500, function() {
 				$('#btnRefreshList').click();
 			}, false, false);
 		});
-
+		
 		$('#btnSearch').click(function() {
 			doQueryObject();
 		});
@@ -91,50 +147,93 @@
 			clearSearchCriteria(container);
 		});
 	});
+	
+	function doGetObjects() {
+		var tableId="typeList";
+		var url=sitePath+"/Stock/findType";
+		var table = new TreeTable(tableId,url, columns);
+		table.setExpandColumn(2);
+		table.init();
+	}
+	
+	function getSelectedId(){
+		//1.获取选中的对象，默认返回值为一个数据对象
+		var selections = $("#typeList").bootstrapTreeTable("getSelections");
+		if(selections.length==0){
+			return -1;//表示没选中任何对象
+		}
+		//1.2获得选中数组中下标为0的元素id的值
+		return selections[0].id;
+	}
 
-	function offer_edit(offerId) {
-		var url = sitePath + "/Offer/addEditOffer?id=" + offerId;
-		window.popUp(url, "编辑供应商", "primary", 850, 500, function() {
+	function type_edit(typeId) {
+		var typeId = getSelectedId();
+		if (typeId==-1) {
+			swal("请选择修改的类别");
+			return;
+		}
+		var url = sitePath + "/Stock/addEditStock?id=" + typeId;
+		window.popUp(url, "修改类别", "primary", 850, 500, function() {
 			$('#btnRefreshList').click();
 		}, false, false);
 
 	}
 
-	function offer_del(offerId) {
-		if (!offerId) {
+	function type_del(typeId) {
+		var typeId = getSelectedId();
+		if (!typeId) {
+			return;
+		}
+		if(typeId==-1){
+			swal("请选择删除的类别！");
 			return;
 		}
 
-		swal({
-			title : "确定删除吗？",
-			text : "你将永久删除员工相关的数据！",
-			type : "warning",
-			showCancelButton : true,
-			confirmButtonColor : "#DD6B55",
-			confirmButtonText : "确定删除！",
-			cancelButtonText : "取消",
-			closeOnConfirm : true
-		}, function() {
-			del()
+		$.ajax({
+			type : 'get',
+			url : sitePath + '/Stock/findTypeCount',
+			data : {
+				id : typeId,
+			},
+			success : function(ret) {
+				if(ret==1){
+					swal("请先删除类别下的分类！");
+					return;
+				}
+				
+				if(ret==0){
+					swal({
+						title : "确定删除吗？",
+						text : "你将永久删除员工相关的数据！",
+						type : "warning",
+						showCancelButton : true,
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "确定删除！",
+						cancelButtonText : "取消",
+						closeOnConfirm : true
+					}, function() {
+						del();
+					});
+				}
+			}
 		});
-
+			
 		function del() {
 			$.ajax({
-				type : 'post',
-				url : sitePath + '/Offer/deleteOffer',
+				type : 'get',
+				url : sitePath + '/Stock/deleteType',
 				data : {
-					id : offerId
+					id : typeId
 				},
-				success : function() {
+				success : function(ret) {
 					$('#btnRefreshList').click();
 				}
-
 			});
 		}
 	}
 
 	function doQueryObject() {
-		$.post(sitePath + '/Offer/findOffer', {
+		$.post(sitePath + '/Stock/findStock', {
 			barCode : $("#barCode").val(),
 			tradeName : $("#tradeName").val()
 		}, function(result) {
@@ -150,9 +249,10 @@
 
 			var tr = $("<tr></tr>");
 
-			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].name + "</td>" + "<td>" + result[i].linkman + "</td>" + "<td>" + result[i].telephone + "</td>"
-					+ "<td>" + result[i].address + "</td>" + "<td>" + result[i].remark + "</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="offer_edit('
-					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="offer_del(' + result[i].id + ')"></td>';
+			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].barCode + "</td>" + "<td>" + result[i].tradeName + "</td>" + "<td>" + result[i].uid + "</td>"
+					+ "<td>" + result[i].purchasePrice + "</td>" + "<td>" + result[i].presellPrice + "</td>" +"<td>" + result[i].discount + "</td>" +"<td>" + result[i].mid + "</td>" +
+					"<td>" + result[i].remark  +"</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="merch_edit('
+					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="merch_del(' + result[i].id + ')"></td>';
 
 			tr.append(tds);
 			tBody.append(tr);

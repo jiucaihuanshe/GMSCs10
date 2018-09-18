@@ -2,5 +2,102 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gms.backend.mapper.StockMapper">
+	<select id="findType" resultType="map">
+		select m.tid as id,m.tname as name,m.tarentId as parentId,m.tremark,
+		(select t.tname from merchandise_type t where t.tid=m.tarentId) as tarentName
+		from merchandise_type m
+	</select>
 	
+	<select id="findTreeUI" resultType="map">
+		select m.tid as id,m.tname as name,m.tarentId as parentId,m.tremark,
+		(select t.tname from merchandise_type t where t.tid=m.tarentId) as tarentName
+		from merchandise_type m
+	</select>
+	
+	<insert id="saveType" parameterType="MerchandiseType" useGeneratedKeys="true" keyProperty="id">
+		insert into merchandise_type(tarentId,tname,tremark) values(#{tarentId},#{tname},#{tremark})
+	</insert>
+	
+	<update id="updateType">
+		update merchandise_type
+		<set>
+			<if test="tname!=null and tname!=''">
+				tname=#{tname},
+			</if>
+			<if test="tarentId!=null and tarentId!=''">
+				tarentId=#{tarentId},
+			</if>
+			<if test="tremark!=null and tremark!=''">
+				tremark=#{tremark},
+			</if>
+		</set>
+		where tid=#{tid}
+	</update>
+	
+	<select id="findTypeId" resultType="TypeInfo">
+		select m.tid as id,m.tname as name,m.tarentId as parentId,m.tremark,
+		(select t.tname from merchandise_type t where t.tid=m.tarentId) as tarentName
+		from merchandise_type m where tid=#{id}
+	</select>
+	
+	<select id="findTypeCount" resultType="Integer">
+		select count(*) from merchandise_type where tarentId=#{id}
+	</select>
+	
+	<delete id="deleteType">
+		delete from merchandise_type where tid=#{id}
+	</delete>
+	
+	<select id="findMerchId" resultType="Merchandise">
+		select id,bar_code as barCode,trade_name as tradeName,uid,purchase_price as purchasePrice,
+		presell_price as presellPrice,discount,mid,remark where delete_flag=0 and id=#{id}
+	</select>
+	
+	<insert id="insertUnit" parameterType="Unit" useGeneratedKeys="true" keyProperty="id">
+		insert into unit(name) values(#{name})
+	</insert>
+	
+	<insert id="saveMerchInfo" parameterType="MerchInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into merchandise(id,bar_code,trade_name,uid,purchase_price,presell_price,
+		discount,mid,remark) values(#{barCode},#{tradeName},#{uid},#{purchasePrice},#{presellPrice},
+		#{discount},#{mid},#{remark})
+	</insert>
+	
+	<select id="findUnitName" resultType="Integer">
+		select count(*) from unit where name =#{name}
+	</select>
+	
+	<update id="updateMerch">
+		update merchandise
+		<set>
+			<if test="barCode!=null and barCode!=''">
+				bar_code=#{barCode},
+			</if>
+			<if test="tradeName!=null and tradeName!=''">
+				trade_name=#{tradeName},
+			</if>
+			<if test="purchasePrice!=null and purchasePrice!=''">
+				purchase_price=#{purchasePrice},
+			</if>
+			<if test="presellPrice!=null and presellPrice!=''">
+				presell_price=#{presellPrice},
+			</if>
+			<if test="discount!=null and discount!=''">
+				discount=#{discount},
+			</if>
+			<if test="mid!=null and mid!=''">
+				mid=#{mid},
+			</if>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark},
+			</if>
+		</set>
+		where id =#{id}
+	</update>
+	
+	<select id="findMerchUI" resultType="map">
+		select m.tid as id,m.tname as name,m.tarentId as parentId,m.tremark,
+		(select t.tname from merchandise_type t where t.tid=m.tarentId) as tarentName
+		from merchandise_type m
+	</select>
 </mapper>

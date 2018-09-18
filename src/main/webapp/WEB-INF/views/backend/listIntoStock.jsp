@@ -6,18 +6,19 @@
 	<div class="box-header">
 		<div class="row search-panel">
 			<div class="col-lg-3 col-xs-6">
-				<label for="searchOfferName" class="control-label"> 供货商： </label>
-				<input type="text" class="form-control" id="searchOfferName">
+				<label for="barCode" class="control-label"> 条形码编号： </label>
+				<input type="text" class="form-control" id="barCode">
 			</div>
 			<div class="col-lg-3 col-xs-6">
-				<label for="searchPhone" class="control-label">电话：</label>
-				<input type="text" class="form-control" id="searchPhone">
+				<label for="tradeName" class="control-label">商品名称：</label>
+				<input type="text" class="form-control" id="tradeName">
 			</div>
 		</div>
 
 		<div class="row" style="margin-top: 15px">
-			<div class="col-lg-3 col-xs-6">
-				<button id="btnAddOffer" type="button" class="btn btn-primary">添加供货商</button>
+			<div class="col-xs-9">
+				<button id="btnAddMerch" type="button" class="btn btn-primary">新增商品</button>
+				<button id="btnAddMerch" type="button" class="btn btn-primary">修改商品</button>
 				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
 				<button id="btnClear" type="button" class="btn btn-default">重置</button>
 				<button id="btnRefreshList" type="button" class="btn btn-success" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
@@ -26,30 +27,35 @@
 	</div>
 
 	<div class="box-body">
-		<table id="offerList" class="table table-bordered table-hover">
+		<table id="merchList" class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th width="8%">序号</th>
-					<th width="10%">供货商</th>
-					<th width="8%">联系人</th>
-					<th width="10%">电话</th>
-					<th width="15%">地址</th>
-					<th width="15%" id="remark">备注</th>
-					<th width="15%">操作</th>
+					<th width="5%">序号</th>
+					<th width="10%">条形码编号</th>
+					<th width="15%">商品名称</th>
+					<th width="5%">单位编号</th>
+					<th width="5%">进货价格</th>
+					<th width="5%">预售价格</th>
+					<th width="5%">折扣率</th>
+					<th width="8%">商品类别编号</th>
+					<th width="8%">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${offers}" var="offer" varStatus="status">
+				<c:forEach items="${merchs}" var="merch" varStatus="status">
 					<tr>
 						<td>${status.count }</td>
-						<td>${offer.name }</td>
-						<td>${offer.linkman }</td>
-						<td>${offer.telephone }</td>
-						<td>${offer.address }</td>
-						<td>${offer.remark }</td>
+						<td>${merch.barCode }</td>
+						<td>${merch.tradeName }</td>
+						<td>${merch.uid }</td>
+						<td>${merch.purchasePrice }</td>
+						<td>${merch.presellPrice }</td>
+						<td>${merch.discount }</td>
+						<td>${merch.mid }</td>
+						<td>${merch.remark }</td>
 						<td class="operate">
-							<i class="fa fa-edit" onclick="offer_edit(${offer.id })"></i>
-							<i class="fa fa-trash-o" onclick="offer_del(${offer.id })"></i>
+							<i class="fa fa-edit" onclick="merch_edit(${merch.id })"></i>
+							<i class="fa fa-trash-o" onclick="merch_del(${merch.id })"></i>
 						</td>
 					</tr>
 				</c:forEach>
@@ -59,20 +65,20 @@
 </div>
 <script>
 	$(function() {
-		
-		$('#offerList').dataTable({
+		$('#merchList').dataTable({
 			"searching": true,
 			"paging": true,
 			"info": true,
 			"bAutoWidth": true,
-            "aaSorting": [[0, "asc"]],
-            "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 4,5,6 ] }],
-            "sPaginationType": "full_numbers",
-	    });
+			"aaSorting" : [ [ 0, "asc" ] ],
+			"bStateSave" : true,
+			"sPaginationType": "full_numbers",
+			"aoColumnDefs" : [{"orderable" : false,"aTargets" : [ 6,7,8 ]}] 
+		});
 		
-		$('#btnAddOffer').click(function() {
-			var url = sitePath + "/Offer/addEditOffer?id=0";
-			window.popUp(url, "添加供货商", "primary", 850, 500, function() {
+		$('#btnAddMerch').click(function() {
+			var url = sitePath + "/Stock/addEditMerch?id=0";
+			window.popUp(url, "新增商品", "primary", 850, 500, function() {
 				$('#btnRefreshList').click();
 			}, false, false);
 		});
@@ -87,9 +93,9 @@
 		});
 	});
 
-	function offer_edit(offerId) {
-		var url = sitePath + "/Offer/addEditOffer?id=" + offerId;
-		window.popUp(url, "编辑供应商", "primary", 850, 500, function() {
+	function merch_edit(merchId) {
+		var url = sitePath + "/Stock/addEditMerch?id=" + merchId;
+		window.popUp(url, "修改商品", "primary", 850, 500, function() {
 			$('#btnRefreshList').click();
 		}, false, false);
 
