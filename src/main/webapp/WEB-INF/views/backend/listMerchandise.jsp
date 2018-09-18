@@ -20,9 +20,7 @@
 				<button id="btnAddMerch" type="button" class="btn btn-primary">添加商品</button>
 				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
 				<button id="btnClear" type="button" class="btn btn-default">重置</button>
-			</div>
-			<div class="col-xs-9">
-				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
+				<button id="btnRefreshList" type="button" class="btn btn-success" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
 			</div>
 		</div>
 	</div>

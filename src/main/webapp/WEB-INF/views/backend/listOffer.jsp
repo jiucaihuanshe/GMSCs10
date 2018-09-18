@@ -4,7 +4,7 @@
 
 <div class="box">
 	<div class="box-header">
-		<div class="row">
+		<div class="row search-panel">
 			<div class="col-lg-3 col-xs-6">
 				<label for="searchOfferName" class="control-label"> 供货商： </label>
 				<input type="text" class="form-control" id="searchOfferName">
@@ -19,9 +19,8 @@
 			<div class="col-lg-3 col-xs-6">
 				<button id="btnAddOffer" type="button" class="btn btn-primary">添加供货商</button>
 				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
-			</div>
-			<div class="col-xs-9">
-				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
+				<button id="btnClear" type="button" class="btn btn-default">重置</button>
+				<button id="btnRefreshList" type="button" class="btn btn-success" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
 			</div>
 		</div>
 	</div>
@@ -80,6 +79,11 @@
 
 		$('#btnSearch').click(function() {
 			doQueryObject();
+		});
+		
+		$('#btnClear').click(function(){
+			var container=	$('div.search-panel');
+			clearSearchCriteria(container);
 		});
 	});
 

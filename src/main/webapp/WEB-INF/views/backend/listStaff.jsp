@@ -142,6 +142,11 @@
 		$('#btnSearch').click(function() {
 			doQueryObject();
 		});
+		
+		$('#btnClear').click(function(){
+			var container=	$('div.search-panel');
+			clearSearchCriteria(container);
+		});
 	});
 	
 	function doGetObjects() {
