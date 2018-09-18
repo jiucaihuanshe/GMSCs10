@@ -13,17 +13,15 @@
 				<label for="searchPhone" class="control-label">电话：</label>
 				<input type="text" class="form-control" id="searchPhone">
 			</div>
-			<div class="col-lg-6 col-xs-12" style="margin-top: 25px">
-				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
-			</div>
 		</div>
 
 		<div class="row" style="margin-top: 15px">
 			<div class="col-lg-3 col-xs-6">
 				<button id="btnAddOffer" type="button" class="btn btn-primary">添加供货商</button>
+				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
 			</div>
 			<div class="col-xs-9">
-				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()">刷新</button>
+				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
 			</div>
 		</div>
 	</div>

@@ -4,7 +4,7 @@
 
 <div class="box">
 	<div class="box-header">
-		<div class="row">
+		<div class="row search-panel">
 			<div class="col-lg-3 col-xs-6">
 				<label for="barCode" class="control-label"> 条形码编号： </label>
 				<input type="text" class="form-control" id="barCode">
@@ -13,17 +13,16 @@
 				<label for="tradeName" class="control-label">商品名称：</label>
 				<input type="text" class="form-control" id="tradeName">
 			</div>
-			<div class="col-lg-6 col-xs-12" style="margin-top: 25px">
-				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
-			</div>
 		</div>
 
 		<div class="row" style="margin-top: 15px">
 			<div class="col-lg-3 col-xs-6">
 				<button id="btnAddMerch" type="button" class="btn btn-primary">添加商品</button>
+				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
+				<button id="btnClear" type="button" class="btn btn-default">重置</button>
 			</div>
 			<div class="col-xs-9">
-				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()">刷新</button>
+				<button id="btnRefreshList" type="button" class="btn btn-success pull-right" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
 			</div>
 		</div>
 	</div>
@@ -74,9 +73,8 @@
 			"bAutoWidth": true,
 			"aaSorting" : [ [ 0, "asc" ] ],
 			"bStateSave" : true,
-			"aoColumnDefs" : [ {
-				"orderable" : false,
-				"aTargets" : [ 6,7,8 ]}] 
+			"sPaginationType": "full_numbers",
+			"aoColumnDefs" : [{"orderable" : false,"aTargets" : [ 6,7,8 ]}] 
 		});
 		
 		$('#btnAddMerch').click(function() {
@@ -88,6 +86,11 @@
 
 		$('#btnSearch').click(function() {
 			doQueryObject();
+		});
+		
+		$('#btnClear').click(function(){
+			var container=	$('div.search-panel');
+			clearSearchCriteria(container);
 		});
 	});
 

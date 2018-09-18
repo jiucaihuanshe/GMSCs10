@@ -144,3 +144,9 @@
 	}
 	$.fn.dataTable.defaults.oLanguage = oLanguage;
 })();
+
+function clearSearchCriteria(container){
+	
+	$('input.form-control',$(container)).val('');
+	$('select.form-control',$(container)).val('');
+}
