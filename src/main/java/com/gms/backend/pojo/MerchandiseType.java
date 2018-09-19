@@ -4,32 +4,32 @@ import java.io.Serializable;
 
 public class MerchandiseType implements Serializable{
 	private static final long serialVersionUID = 2930779891851092279L;
-	private Integer tid;
-	private Integer tarentId;
-	private String tname;
-	private String tremark;
-	public Integer getTid() {
-		return tid;
+	private Integer id;
+	private Integer parentId;
+	private String name;
+	private String remark;
+	public Integer getId() {
+		return id;
 	}
-	public void setTid(Integer tid) {
-		this.tid = tid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public Integer getTarentId() {
-		return tarentId;
+	public Integer getParentId() {
+		return parentId;
 	}
-	public void setTarentId(Integer tarentId) {
-		this.tarentId = tarentId;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
-	public String getTname() {
-		return tname;
+	public String getName() {
+		return name;
 	}
-	public void setTname(String tname) {
-		this.tname = tname;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getTremark() {
-		return tremark;
+	public String getRemark() {
+		return remark;
 	}
-	public void setTremark(String tremark) {
-		this.tremark = tremark;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }

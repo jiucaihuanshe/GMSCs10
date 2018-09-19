@@ -72,10 +72,11 @@ public class StockServiceImpl implements StockService{
 	public void saveMerch(MerchInfo merchInfo) {
 		Unit unit = new Unit();
 		unit.setName(merchInfo.getName());
-		int uid = stockMapper.insertUnit(unit);
-		System.out.println(uid);
-		
-		merchInfo.setUid(uid);
+		stockMapper.insertUnit(unit);
+		merchInfo.setUid(unit.getId());
+		if(merchInfo.getDiscount()!=null && merchInfo.getDiscount().equals("")){
+			merchInfo.setDiscount(1.00);
+		}
 		stockMapper.saveMerchInfo(merchInfo);
 	}
 
@@ -83,19 +84,29 @@ public class StockServiceImpl implements StockService{
 	public void updateMerch(MerchInfo merchInfo) {
 		Unit unit = new Unit();
 		unit.setName(merchInfo.getName());
-		int rows = stockMapper.findUnitName(unit);
-		if(rows ==1){ //说明名字相同，不用修改的
+		Unit unit2 = stockMapper.findUnitName(unit);
+		/**
+		 * 先判断merchInfo中的单位是否存在，或者单位跟数据库中名字存在，
+		 * 存入新的数据库，然后根据id 修改。
+		 */
+		if(merchInfo.getName().equals(unit2.getName())){ //说明名字相同，不用修改的
 			stockMapper.updateMerch(merchInfo);
 		}else{
-			int uid = stockMapper.insertUnit(unit);
-			merchInfo.setUid(uid);
+			stockMapper.insertUnit(unit);
+			merchInfo.setUid(unit.getId());
 			stockMapper.updateMerch(merchInfo);
 		}
 	}
 
 	@Override
-	public List<Map<String, Object>> findMerchUI() {
-		List<Map<String, Object>> tMerch = stockMapper.findMerchUI();
+	public List<TypeInfo> findMerchUI() {
+		List<TypeInfo> tMerch = stockMapper.findMerchUI();
 		return tMerch;
+	}
+
+	@Override
+	public List<MerchInfo> findAllStock() {
+		List<MerchInfo> mList = stockMapper.findAllStock();
+		return mList;
 	}
 }

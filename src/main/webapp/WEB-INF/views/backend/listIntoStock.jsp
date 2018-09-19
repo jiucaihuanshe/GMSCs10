@@ -33,11 +33,12 @@
 					<th width="5%">序号</th>
 					<th width="10%">条形码编号</th>
 					<th width="15%">商品名称</th>
-					<th width="5%">单位编号</th>
+					<th width="8%">单位编号</th>
 					<th width="5%">进货价格</th>
 					<th width="5%">预售价格</th>
 					<th width="5%">折扣率</th>
-					<th width="8%">商品类别编号</th>
+					<th width="5%">商品类别编号</th>
+					<th width="10%">备注</th>
 					<th width="8%">操作</th>
 				</tr>
 			</thead>
@@ -47,11 +48,11 @@
 						<td>${status.count }</td>
 						<td>${merch.barCode }</td>
 						<td>${merch.tradeName }</td>
-						<td>${merch.uid }</td>
+						<td>${merch.name }</td>
 						<td>${merch.purchasePrice }</td>
 						<td>${merch.presellPrice }</td>
 						<td>${merch.discount }</td>
-						<td>${merch.mid }</td>
+						<td>${merch.mname }</td>
 						<td>${merch.remark }</td>
 						<td class="operate">
 							<i class="fa fa-edit" onclick="merch_edit(${merch.id })"></i>
@@ -94,6 +95,7 @@
 	});
 
 	function merch_edit(merchId) {
+		console.log(merchId);
 		var url = sitePath + "/Stock/addEditMerch?id=" + merchId;
 		window.popUp(url, "修改商品", "primary", 850, 500, function() {
 			$('#btnRefreshList').click();

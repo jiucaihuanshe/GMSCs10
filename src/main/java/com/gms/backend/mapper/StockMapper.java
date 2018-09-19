@@ -31,10 +31,12 @@ public interface StockMapper {
 
 	void saveMerchInfo(MerchInfo merchInfo);
 
-	int findUnitName(Unit unit);
+	Unit findUnitName(Unit unit);
 
 	void updateMerch(MerchInfo merchInfo);
 
-	List<Map<String, Object>> findMerchUI();
+	List<TypeInfo> findMerchUI();
+
+	List<MerchInfo> findAllStock();
 
 }

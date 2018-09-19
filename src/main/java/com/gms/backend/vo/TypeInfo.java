@@ -8,7 +8,7 @@ public class TypeInfo implements Serializable{
 	private Integer parentId;
 	private String name;
 	private String tarentName;
-	private String tremark;
+	private String remark;
 	public Integer getId() {
 		return id;
 	}
@@ -33,10 +33,10 @@ public class TypeInfo implements Serializable{
 	public void setTarentName(String tarentName) {
 		this.tarentName = tarentName;
 	}
-	public String getTremark() {
-		return tremark;
+	public String getRemark() {
+		return remark;
 	}
-	public void setTremark(String tremark) {
-		this.tremark = tremark;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }

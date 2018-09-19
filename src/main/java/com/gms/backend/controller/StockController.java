@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gms.backend.pojo.Merchandise;
 import com.gms.backend.pojo.MerchandiseType;
 import com.gms.backend.service.StockService;
 import com.gms.backend.vo.JsonResult;
@@ -27,6 +26,8 @@ public class StockController {
 	@RequestMapping(value="listMerchandise",method=RequestMethod.GET)
 	public ModelAndView listMerchandise(){
 		ModelAndView mView = new ModelAndView();
+		List<MerchInfo> mList = stockService.findAllStock();
+		mView.addObject("merchs", mList);
 		mView.setViewName("backend/listMerchandise");
 		return mView;
 	}
@@ -34,6 +35,8 @@ public class StockController {
 	@RequestMapping(value="listIntoStock" ,method = RequestMethod.GET)
 	public ModelAndView listIntoStock(){
 		ModelAndView mView = new ModelAndView();
+		List<MerchInfo> mList = stockService.findAllStock();
+		mView.addObject("merchs", mList);
 		mView.setViewName("backend/listIntoStock");
 		return mView;
 	}
@@ -94,7 +97,7 @@ public class StockController {
 	@RequestMapping(value="doAddEditType",method=RequestMethod.POST)
 	@ResponseBody
 	public String doAddEditType(MerchandiseType mType){
-		if(mType.getTid()==0){
+		if(mType.getId()==0){
 			stockService.saveType(mType);
 		}else{
 			stockService.updateType(mType);
@@ -122,9 +125,8 @@ public class StockController {
 	
 	@RequestMapping(value="findMerchUI",method=RequestMethod.GET)
 	@ResponseBody
-	public JsonResult findMerchUI(){
-		List<Map<String, Object>> tMerch = stockService.findMerchUI();
-		System.out.println(tMerch);
-		return new JsonResult(1, "ok", tMerch);
+	public List<TypeInfo> findMerchUI(){
+		List<TypeInfo> typeInfos = stockService.findMerchUI();
+		return typeInfos;
 	}
 }

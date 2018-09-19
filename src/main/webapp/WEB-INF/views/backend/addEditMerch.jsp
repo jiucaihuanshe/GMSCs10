@@ -18,7 +18,7 @@
 			<div class="form-group">
 				<label for="uid" class="col-sm-2 control-label">单位编号</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="uid" name="uid" value="${merch.uid}">
+					<input type="text" class="form-control" id="uid" name="uid" value="${merch.name}">
 				</div>
 				<label for="purchasePrice" class="col-sm-2 control-label required">进货价格</label>
 				<div class="col-sm-4">
@@ -41,7 +41,7 @@
 				<label for="parentId" class="col-sm-2 control-label">上级类别</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control "
-						readonly="readonly" id="parentId" placeholder="上级类别" value="${merch.mid}">
+						readonly="readonly" id="parentId" placeholder="上级类别" value="${merch.mname}">
 			</div>
 			</div>
 			
@@ -94,7 +94,6 @@
 		$('#btnCancel').click(function() {
 			window.parent.closePopUp();
 		});
-		setDropDownValue();
 	});
 	
 	function doLoadZTreeNodes(){
@@ -103,7 +102,6 @@
 			type : 'get',
 			url : sitePath + '/Stock/findMerchUI',
 			success : function(ret) {
-				console.log(ret);
 				ztree = $.fn.zTree.init($("#menuTree"),setting,ret);
 			}
 		});
@@ -117,11 +115,6 @@
 	}
 	function doHideTree(){
 		  $('#menuLayer').css('display','none');
-	}
-	
-	function setDropDownValue() {
-		var oldGender = $('#hidOldGender').val();
-		$('input[name=gender][value="' + oldGender + '"]').attr('checked', true);
 	}
 
 	$('#merchForm').validate({
@@ -140,31 +133,31 @@
 		focusCleanup : true,
 		success : "valid",
 		submitHandler : function(form) {
-			saveStaff();
+			saveStock();
 		}
 	});
 
-	function saveStaff() {
+	function saveStock() {
 		var formObj = {};
 		formObj.id = $('#hidMerchId').val();
 		if (!formObj.id) {
 			formObj.id = 0;
 		}
 
-		formObj.name = $('#merchName').val();
-		formObj.gender = $('input[name=gender]:checked').val();
-		formObj.age = $('#age').val();
+		formObj.barCode = $('#merchName').val();
+		formObj.tradeName = $('#tradeName').val();
+		formObj.name = $('#uid').val();
 		
-		formObj.duty = $("#merchForm").data("parentId");
-		
-		formObj.idCard = $('#idCard').val();
-		formObj.telephone = $('#telephone').val();			
-		formObj.address = $('#address').val();
+		formObj.mid = $("#merchForm").data("parentId");
+		formObj.purchasePrice = $('#purchasePrice').val();
+		formObj.presellPrice = $('#presellPrice').val();		
+		formObj.discount = $('#discount').val();
 		formObj.remark = $('#remark').val();
 		
+		console.log(formObj);
 		$.ajax({
 			type : 'post',
-			url : sitePath + '/Staff/doAddEditStaff',
+			url : sitePath + '/Stock/doAddEditMerch',
 			data : formObj,
 			success : function(ret) {
 				window.parent.closePopUp();

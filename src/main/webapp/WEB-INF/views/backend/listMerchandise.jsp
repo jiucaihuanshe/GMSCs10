@@ -31,11 +31,12 @@
 					<th width="5%">序号</th>
 					<th width="10%">条形码编号</th>
 					<th width="15%">商品名称</th>
-					<th width="5%">单位编号</th>
+					<th width="8%">单位编号</th>
 					<th width="5%">进货价格</th>
 					<th width="5%">预售价格</th>
 					<th width="5%">折扣率</th>
-					<th width="8%">商品类别编号</th>
+					<th width="5%">商品类别编号</th>
+					<th width="10%">备注</th>
 					<th width="8%">操作</th>
 				</tr>
 			</thead>
@@ -45,11 +46,11 @@
 						<td>${status.count }</td>
 						<td>${merch.barCode }</td>
 						<td>${merch.tradeName }</td>
-						<td>${merch.uid }</td>
+						<td>${merch.name }</td>
 						<td>${merch.purchasePrice }</td>
 						<td>${merch.presellPrice }</td>
 						<td>${merch.discount }</td>
-						<td>${merch.mid }</td>
+						<td>${merch.mname }</td>
 						<td>${merch.remark }</td>
 						<td class="operate">
 							<i class="fa fa-edit" onclick="merch_edit(${merch.id })"></i>
@@ -111,7 +112,7 @@
        		}, 
        		{
        			title : '备注',
-       			field : 'tremark',
+       			field : 'remark',
        			align : 'center',
        			valign : 'middle',
        			sortable : true,
@@ -249,8 +250,8 @@
 
 			var tr = $("<tr></tr>");
 
-			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].barCode + "</td>" + "<td>" + result[i].tradeName + "</td>" + "<td>" + result[i].uid + "</td>"
-					+ "<td>" + result[i].purchasePrice + "</td>" + "<td>" + result[i].presellPrice + "</td>" +"<td>" + result[i].discount + "</td>" +"<td>" + result[i].mid + "</td>" +
+			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].barCode + "</td>" + "<td>" + result[i].tradeName + "</td>" + "<td>" + result[i].name + "</td>"
+					+ "<td>" + result[i].purchasePrice + "</td>" + "<td>" + result[i].presellPrice + "</td>" +"<td>" + result[i].discount + "</td>" +"<td>" + result[i].mname + "</td>" +
 					"<td>" + result[i].remark  +"</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="merch_edit('
 					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="merch_del(' + result[i].id + ')"></td>';
 

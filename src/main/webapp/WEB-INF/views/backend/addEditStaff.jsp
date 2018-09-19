@@ -113,6 +113,7 @@
 			type : 'get',
 			url : sitePath + '/Staff/findTreeUI',
 			success : function(ret) {
+				console.log(ret);
 				ztree = $.fn.zTree.init($("#menuTree"),setting,ret);
 			}
 		});

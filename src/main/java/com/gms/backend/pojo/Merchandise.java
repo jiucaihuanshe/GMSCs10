@@ -1,6 +1,7 @@
 package com.gms.backend.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 商品表
@@ -10,11 +11,11 @@ import java.io.Serializable;
 public class Merchandise implements Serializable{
 	private static final long serialVersionUID = 3415464876144761551L;
 	private Integer id;
-	private Integer barCode;	//条形码编号
+	private String barCode;	//条形码编号
 	private String tradeName;	//商品名称
 	private Integer uid;	//单位编号
-	private Double purchasePrice;	//进货价格
-	private Double presellPrice;	//预售价格
+	private BigDecimal purchasePrice;	//进货价格
+	private BigDecimal presellPrice;	//预售价格
 	private Double discount;	//折扣率
 	private Integer mid;	//商品类别编号
 	private String remark;	//备注
@@ -25,10 +26,10 @@ public class Merchandise implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getBarCode() {
+	public String getBarCode() {
 		return barCode;
 	}
-	public void setBarCode(Integer barCode) {
+	public void setBarCode(String barCode) {
 		this.barCode = barCode;
 	}
 	public String getTradeName() {
@@ -43,16 +44,16 @@ public class Merchandise implements Serializable{
 	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
-	public Double getPurchasePrice() {
+	public BigDecimal getPurchasePrice() {
 		return purchasePrice;
 	}
-	public void setPurchasePrice(Double purchasePrice) {
+	public void setPurchasePrice(BigDecimal purchasePrice) {
 		this.purchasePrice = purchasePrice;
 	}
-	public Double getPresellPrice() {
+	public BigDecimal getPresellPrice() {
 		return presellPrice;
 	}
-	public void setPresellPrice(Double presellPrice) {
+	public void setPresellPrice(BigDecimal presellPrice) {
 		this.presellPrice = presellPrice;
 	}
 	public Double getDiscount() {

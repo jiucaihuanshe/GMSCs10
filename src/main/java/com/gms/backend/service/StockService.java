@@ -30,6 +30,8 @@ public interface StockService {
 
 	void updateMerch(MerchInfo merchInfo);
 
-	List<Map<String, Object>> findMerchUI();
+	List<TypeInfo> findMerchUI();
+
+	List<MerchInfo> findAllStock();
 
 }
