@@ -99,6 +99,12 @@
 			</a>
 			<ul class="treeview-menu">
 				<li>
+					<a href="javascript:loadMainPage('${basePath }/Store/listStorage')">
+						<i class="fa fa-circle-o"></i>
+						商品库存
+					</a>
+				</li>
+				<li>
 					<a href="javascript:loadMainPage('${basePath }/Store/listStorehouse')">
 						<i class="fa fa-circle-o"></i>
 						仓库信息

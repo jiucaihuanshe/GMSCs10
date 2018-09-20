@@ -86,7 +86,7 @@ alter table merchandise add foreign key(mid) references merchandise_type(tid);
 
 create table storage (
 	id int(4) auto_increment,
-	mbar_code varchar(50) not null,
+	bar_code varchar(50) not null,
 	sid int(4) not null default '1',
 	sum int(4) default '0',
 	remark varchar(50),
