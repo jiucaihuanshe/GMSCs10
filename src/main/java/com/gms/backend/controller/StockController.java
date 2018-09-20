@@ -129,4 +129,18 @@ public class StockController {
 		List<TypeInfo> typeInfos = stockService.findMerchUI();
 		return typeInfos;
 	}
+	
+	@RequestMapping(value="deleteStock",method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteStock(int id){
+		stockService.deleteStock(id);
+		return "ok";
+	}
+	
+	@RequestMapping(value="findStock",method=RequestMethod.POST)
+	@ResponseBody
+	public List<MerchInfo> findStock(String barCode,String tradeName){
+		List<MerchInfo> mList = stockService.findStock(barCode,tradeName);
+		return mList;
+	}
 }

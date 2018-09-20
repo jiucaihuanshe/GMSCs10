@@ -34,4 +34,8 @@ public interface StockService {
 
 	List<MerchInfo> findAllStock();
 
+	void deleteStock(int id);
+
+	List<MerchInfo> findStock(String barCode, String tradeName);
+
 }

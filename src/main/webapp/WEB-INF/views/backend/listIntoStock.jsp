@@ -18,7 +18,6 @@
 		<div class="row" style="margin-top: 15px">
 			<div class="col-xs-9">
 				<button id="btnAddMerch" type="button" class="btn btn-primary">新增商品</button>
-				<button id="btnAddMerch" type="button" class="btn btn-primary">修改商品</button>
 				<button id="btnSearch" type="button" class="btn btn-primary">查询</button>
 				<button id="btnClear" type="button" class="btn btn-default">重置</button>
 				<button id="btnRefreshList" type="button" class="btn btn-success" onclick="freshMainPage()"><i class="fa fa-refresh"></i>刷新</button>
@@ -95,16 +94,14 @@
 	});
 
 	function merch_edit(merchId) {
-		console.log(merchId);
 		var url = sitePath + "/Stock/addEditMerch?id=" + merchId;
 		window.popUp(url, "修改商品", "primary", 850, 500, function() {
 			$('#btnRefreshList').click();
 		}, false, false);
-
 	}
 
-	function offer_del(offerId) {
-		if (!offerId) {
+	function merch_del(merchId) {
+		if (!merchId) {
 			return;
 		}
 
@@ -124,9 +121,9 @@
 		function del() {
 			$.ajax({
 				type : 'post',
-				url : sitePath + '/Offer/deleteOffer',
+				url : sitePath + '/Stock/deleteStock',
 				data : {
-					id : offerId
+					id : merchId
 				},
 				success : function() {
 					$('#btnRefreshList').click();
@@ -137,25 +134,28 @@
 	}
 
 	function doQueryObject() {
-		$.post(sitePath + '/Offer/findOffer', {
-			name : $("#searchOfferName").val(),
-			telephone : $("#searchPhone").val()
+		$.post(sitePath + '/Stock/findStock', {
+			barCode : $("#barCode").val(),
+			tradeName : $("#tradeName").val()
 		}, function(result) {
 			setTableBodyRows(result);
 		});
 	}
 
 	function setTableBodyRows(result) {
-		var tBody = $("#offerList>tbody");
+		console.log(result);
+		var tBody = $("#merchList>tbody");
 		tBody.empty();
 
 		for ( var i in result) {
 
 			var tr = $("<tr></tr>");
 
-			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].name + "</td>" + "<td>" + result[i].linkman + "</td>" + "<td>" + result[i].telephone + "</td>"
-					+ "<td>" + result[i].address + "</td>" + "<td>" + result[i].remark + "</td>" + '<td class="operate"><i class="fa fa-edit"	onclick="offer_edit('
-					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="offer_del(' + result[i].id + ')"></td>';
+			var tds = "<td>" + (parseInt(i) + 1) + "</td>" + "<td>" + result[i].barCode + "</td>" + "<td>" + result[i].tradeName + "</td>" + "<td>" + result[i].name + "</td>"
+					+ "<td>" + result[i].purchasePrice + "</td>" + "<td>" + result[i].presellPrice + "</td>"+ "<td>" + result[i].discount + "</td>"+ "<td>" + result[i].mname + "</td>"
+					+ "</td>"+ "<td>" + result[i].remark + "</td>"
+					+ '<td class="operate"><i class="fa fa-edit"	onclick="merch_edit('
+					+ result[i].id + ')"></i> ' + '<i class="fa fa-trash-o" onclick="merch_del(' + result[i].id + ')"></td>';
 
 			tr.append(tds);
 			tBody.append(tr);

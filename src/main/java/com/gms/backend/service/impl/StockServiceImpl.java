@@ -13,6 +13,7 @@ import com.gms.backend.pojo.Unit;
 import com.gms.backend.service.StockService;
 import com.gms.backend.vo.MerchInfo;
 import com.gms.backend.vo.TypeInfo;
+import com.gms.backend.vo.UnitInfo;
 
 @Service
 public class StockServiceImpl implements StockService{
@@ -84,16 +85,19 @@ public class StockServiceImpl implements StockService{
 	public void updateMerch(MerchInfo merchInfo) {
 		Unit unit = new Unit();
 		unit.setName(merchInfo.getName());
-		Unit unit2 = stockMapper.findUnitName(unit);
+		UnitInfo uInfo = stockMapper.findUnitName(unit);	//查询name是否存在于数据库中
 		/**
 		 * 先判断merchInfo中的单位是否存在，或者单位跟数据库中名字存在，
-		 * 存入新的数据库，然后根据id 修改。
+		 * 存入新的数据库，然后根据id修改。
 		 */
-		if(merchInfo.getName().equals(unit2.getName())){ //说明名字相同，不用修改的
+		if(uInfo.getCount() == 0){
+			stockMapper.insertUnit(unit);
+			System.out.println("unitId:"+unit.getId());
+			merchInfo.setUid(unit.getId());
 			stockMapper.updateMerch(merchInfo);
 		}else{
-			stockMapper.insertUnit(unit);
-			merchInfo.setUid(unit.getId());
+			//rows==1
+			merchInfo.setUid(uInfo.getId());
 			stockMapper.updateMerch(merchInfo);
 		}
 	}
@@ -107,6 +111,17 @@ public class StockServiceImpl implements StockService{
 	@Override
 	public List<MerchInfo> findAllStock() {
 		List<MerchInfo> mList = stockMapper.findAllStock();
+		return mList;
+	}
+
+	@Override
+	public void deleteStock(int id) {
+		stockMapper.deleteStock(id);
+	}
+
+	@Override
+	public List<MerchInfo> findStock(String barCode, String tradeName) {
+		List<MerchInfo> mList = stockMapper.findStock(barCode,tradeName);
 		return mList;
 	}
 }

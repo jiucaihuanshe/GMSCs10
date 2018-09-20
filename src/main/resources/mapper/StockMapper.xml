@@ -67,7 +67,7 @@
 		#{discount},#{mid},#{remark})
 	</insert>
 	
-	<select id="findUnitName" resultType="Unit">
+	<select id="findUnitName" resultType="UnitInfo">
 		select id,name,count(*) as count from unit where name =#{name}
 	</select>
 	
@@ -79,6 +79,9 @@
 			</if>
 			<if test="tradeName!=null and tradeName!=''">
 				trade_name=#{tradeName},
+			</if>
+			<if test="uid!=null and uid!=''">
+				uid=#{uid},
 			</if>
 			<if test="purchasePrice!=null and purchasePrice!=''">
 				purchase_price=#{purchasePrice},
@@ -110,5 +113,22 @@
 		m.presell_price as presellPrice,m.discount,
 		(select mt.name from merchandise_type mt where mt.id=m.mid) as mname,
 		m.remark,(select u.name from unit u where u.id=m.uid) as name from merchandise m
+		where delete_flag=0
+	</select>
+	
+	<update id="deleteStock">
+		update merchandise set delete_flag=1 where id=#{id}
+	</update>
+	
+	<select id="findStock" resultType="MerchInfo">
+		select m.id,m.bar_code as barCode,m.trade_name as tradeName,m.purchase_price as purchasePrice,
+		m.presell_price as presellPrice,m.discount,m.remark
+		,mt.name as mname,u.name as name from merchandise m
+		left join unit u on m.uid=u.id
+		left join merchandise_type mt on m.mid=mt.id
+		where
+		(#{barCode}=null or bar_code like concat("%",#{barCode},"%"))
+		and
+		(#{tradeName}=null or trade_name like concat("%",#{tradeName},"%"))
 	</select>
 </mapper>
